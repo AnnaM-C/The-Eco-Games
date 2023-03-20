@@ -26,7 +26,7 @@ class Tip(models.Model):
 
 class MeterReading(models.Model):
     id=models.BigAutoField(auto_created=True, primary_key=True)
-    value=models.BigAutoField()
+    value=models.CharField(max_length=128)
 
 class Award(models.Model):
     id=models.BigAutoField(auto_created=True, primary_key=True)
@@ -34,29 +34,29 @@ class Award(models.Model):
 
 class Location(models.Model):
     id=models.BigAutoField(auto_created=True, primary_key=True)
-    postcode=models.CharField()
-    country=models.TextField()
-    size_squ_ft=models.CharField()
+    postcode=models.CharField(max_length=128)
+    country=models.TextField(max_length=128)
+    size_squ_ft=models.CharField(max_length=128)
 
 class Faction(models.Model):
     id=models.BigAutoField(auto_created=True, primary_key=True)
-    score=models.BigAutoField()
+    score=models.CharField(max_length=128)
     location=models.ForeignKey(Location, on_delete=models.CASCADE)
 
 # Many-to-many class. User logs many activities in an associative table
 class UserActivity(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    activity=models.ForeignKey(Activity, on_delete=models.CASCADE)
+    user_x=models.ForeignKey(User, on_delete=models.CASCADE)
+    activity_x=models.ForeignKey(Activity, on_delete=models.CASCADE)
 
 # Many-to-many class. User logs many tips in an associative table
 class UserTip(models.Model):
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
-    tip=models.ForeignKey(Tip, on_delete=models.CASCADE)
+    user_x=models.ForeignKey(User, on_delete=models.CASCADE)
+    tip_x=models.ForeignKey(Tip, on_delete=models.CASCADE)
 
 class User(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True)
     name = models.TextField(max_length=128, unique=True)
-    score = models.CharField()
+    score = models.CharField(max_length=128)
     activity_user = models.ForeignKey(UserActivity, on_delete=models.CASCADE)
     tip = models.ForeignKey(Tip, on_delete=models.CASCADE)
     meter_reading=models.ForeignKey(MeterReading, on_delete=models.CASCADE)

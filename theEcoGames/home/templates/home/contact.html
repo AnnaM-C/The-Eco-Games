@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %} 
+    <div class="container">
+        <div class="contact-box">
+            <div class="left"></div>
+            <div class="right">
+        <h2>Contact Us</h2>
+        <form action="https://formsubmit.co/mawosanya14@email.com" method="POST">
+            <input type="text" class="field" placeholder="First name" required>
+            <input type="text" class="field" placeholder="Last name" required>
+            <input type="hidden" name="_subject" value="New submission!">
+            <input type="email" class="field" placeholder="Email" required>
+            <textarea class="field" placeholder="Message"required></textarea>
+            <button type="submit">Send</button>
+        </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

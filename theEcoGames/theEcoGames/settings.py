@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'sass_processor',
+    'home.apps.HomeConfig',
     'game.apps.GameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
