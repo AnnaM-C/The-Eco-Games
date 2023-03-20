@@ -1,0 +1,10 @@
+<!-- Used for Django Messages -->
+
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <!-- Use bootstrap version of the alerts instead using class -->
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
