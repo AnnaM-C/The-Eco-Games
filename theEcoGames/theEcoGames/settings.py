@@ -31,8 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-
-    'testhomeapp.apps.TesthomeappConfig',
     'sass_processor',
     'game.apps.GameConfig',
     'django.contrib.admin',
