@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- Profile Template -->
+
+{% block content %}
+
+<!-- Profile Panel -->
+
+<div id = profilePane>
+
+    <div class = "d-flex justify-content-center" >
+
+        <div class="card mb-3 border border-dark" style="max-width: 540px;" id = profileCard>
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'defaultprofile.png' %}" class="img-fluid rounded-start rounded-circle" alt="You!">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title">Profile Name</h2>
+                  <p class="card-text">A Profile Description would go here or something.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    </div>
+
+
+</div>
+
+
+<!-- Points Widget -->
+
+<div class="row row-cols-1 row-cols-md-3 g-4" id = profileWidgets>
+
+    <!-- Points -->
+
+    <div class = "col">
+
+        <div class="card text-white bg-success h-100" style="max-width: 400px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title">Your Points</h2>
+                  <p class="card-text">You Earned 500 Points!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+    <!-- Activites -->
+
+    <div class = "col">
+
+        <div class="card text-white bg-primary h-100" style="max-width: 400px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title">Recent Activity</h2>
+                  <p class="card-text">You tracked 4 activites today!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+    <!--  -->
+
+    <div class = "col">
+
+        <div class="card text-white bg-warning h-100" style="max-width: 400px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title">CO2 Saved</h2>
+                  <p class="card-text">You saved 50g of Carbon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

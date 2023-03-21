@@ -5,6 +5,35 @@ body {
   background-attachment: fixed;
   background-size: cover; }
 
+#profilePane {
+  padding-top: 5%; }
+
+#profilePane h2 {
+  text-align: center; }
+
+#profilePane p {
+  text-align: center; }
+
+#profileCard {
+  padding: 30px; }
+
+#profileWidgets {
+  margin: auto; }
+
+#profileWidgets img {
+  height: 100px;
+  width: 100px; }
+
+#profileWidgets h2 {
+  text-align: center; }
+
+#profileWidgets p {
+  text-align: center; }
+
+#contentblock {
+  display: flex;
+  flex-wrap: wrap; }
+
 #horizontalnav a {
   color: white; }
 
@@ -25,5 +54,24 @@ body {
   bottom: 0;
   width: 100%;
   background-color: #198754; }
+
+.formfield {
+  display: block; }
+
+.form-control {
+  display: block; }
+
+#contactForm {
+  text-align: center;
+  margin: auto;
+  width: 50%; }
+
+.success {
+  background-color: #1ab31a;
+  text-align: center; }
+
+.error, .errorlist {
+  background-color: #781212;
+  text-align: center; }
 
 /*# sourceMappingURL=base.css.map */
