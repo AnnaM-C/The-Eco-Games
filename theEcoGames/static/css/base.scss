@@ -14,19 +14,56 @@ body {
 }
 
 
+// Profile View Stylings
+
+// Profile Pane
+
+#profilePane {
+    padding-top: 5%;
+}
+
+#profilePane h2 {
+    text-align: center;
+}
+
+#profilePane p {
+    text-align: center;
+}
+
+#profileCard {
+    padding: 30px;
+}
+
+// Profile Widgets
+
+#profileWidgets {
+    margin: auto;
+}
+
+
+#profileWidgets img{
+    height: 100px;
+    width: 100px;
+
+}
+
+#profileWidgets h2 {
+    text-align: center;
+}
+
+#profileWidgets p {
+    text-align: center;
+}
+
+
+#contentblock {
+    display: flex;
+    flex-wrap: wrap;
+}
 
 #horizontalnav a {
     color: white;
 }
-
-// #verticalnav {
-//     margin: 0;
-//     padding: 0;
-
-//     height: 100vh;
-//     width: 100vh;
-    
-// }
 
 #vertnav {
     margin: 0;
@@ -49,4 +86,32 @@ body {
     bottom: 0;
     width: 100%;
     background-color: $navcolor;
+}
+
+// Forms
+
+.formfield{
+    display: block;
+}
+
+.form-control {
+    display: block;
+}
+
+#contactForm {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+// Default Django alerts CSS
+
+.success {
+    background-color: #1ab31a;
+    text-align: center;
+}
+
+.error, .errorlist{
+    background-color: #781212;
+    text-align: center;
 }
