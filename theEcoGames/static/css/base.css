@@ -74,4 +74,75 @@ body {
   background-color: #781212;
   text-align: center; }
 
+#quote h1 {
+  margin: 20px; }
+
+.b1 {
+  display: flex;
+  background-color: antiquewhite;
+  margin-left: 40px;
+  margin-right: 40px;
+  box-shadow: black;
+  border: solid; }
+
+.b2 {
+  /* background-color: aliceblue; */
+  min-width: 150px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px; }
+
+.b3 {
+  /* background-color: aliceblue; */
+  min-width: 200px;
+  /* text-align: center; */
+  padding-right: 20px;
+  margin: 20px; }
+
+.b4 {
+  display: flex;
+  padding-left: 40px;
+  padding-right: 40px;
+  /* background-color: aliceblue; */ }
+
+.b5 {
+  min-width: 200px;
+  background-color: #6ebbea;
+  padding: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px; }
+
+.b6 {
+  background-color: #44a335;
+  padding: 20px 20px 0px 20px;
+  min-width: 180px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px; }
+
+button {
+  margin-top: 50px;
+  float: right; }
+
+#activityTitle {
+  text-align: center; }
+
+fieldset {
+  margin-bottom: 20px; }
+
+#fieldset label {
+  display: table-cell; }
+
+legend {
+  font-weight: bold; }
+
+#activityButton input[type="button"] {
+  margin-top: 10px; }
+
+#total-points {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px; }
+
 /*# sourceMappingURL=base.css.map */

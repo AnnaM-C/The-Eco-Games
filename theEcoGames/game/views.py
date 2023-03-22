@@ -21,3 +21,8 @@ def profile(request):
 def maps(request):
     context = {}
     return render(request, 'game/map.html', context)
+
+
+def activities(request):
+    context = {}
+    return render(request, "game/activities.html", context)

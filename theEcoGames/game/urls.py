@@ -10,5 +10,7 @@ urlpatterns = [
     path('profile', views.profile, name = 'profile'),
     # Maps View
     path('maps', views.maps, name = 'maps'),
+    # Activites View
+    path('activities', views.activities, name = 'activities')
     
 ]

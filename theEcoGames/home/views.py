@@ -14,7 +14,7 @@ from django.contrib import messages
 # home view
 def home(request):
     context = {}
-    return render(request, 'home/home.html', context)
+    return render(request, 'home/homepage.html', context)
 
 
 
