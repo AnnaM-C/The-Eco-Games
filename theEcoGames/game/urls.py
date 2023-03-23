@@ -10,7 +10,8 @@ urlpatterns = [
     path('profile', views.profile, name = 'profile'),
     # Maps View
     path('maps', views.maps, name = 'maps'),
-    # Activites View
-    path('activities', views.activities, name = 'activities')
+
+    # Activities
+    path('<int:nid>/activities/new', views.CreateActivitiesView.as_view(), name = 'create_activities'),
     
 ]
