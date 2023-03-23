@@ -150,3 +150,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# Login and Logout redirects
+LOGIN_REDIRECT_URL = "/challengers/profile"
+LOGOUT_REDIRECT_URL = "/"
