@@ -29,6 +29,7 @@ def maps(request):
     context = {}
     return render(request, 'game/map.html', context)
 
+
 # def activities(request):
     # context = {}
 
@@ -60,3 +61,4 @@ class CreateActivitiesView(LoginRequiredMixin, CreateView):
  def get_success_url(self): 
   # redirect to the event detail view on success
   return reverse_lazy('events_detail', kwargs={'pk':self.kwargs['nid']})
+

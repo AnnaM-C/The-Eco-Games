@@ -1,0 +1,30 @@
+
+
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+h1 {
+	text-align: center;
+}
+
+fieldset {
+	margin-bottom: 20px;
+}
+
+legend {
+	font-weight: bold;
+}
+
+input[type="button"] {
+	margin-top: 10px;
+}
+
+#total-points {
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+
