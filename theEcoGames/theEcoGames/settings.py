@@ -34,14 +34,18 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'sass_processor',
-    'home.apps.HomeConfig',
+    'contact.apps.ContactConfig',
     'game.apps.GameConfig',
+    'home.apps.HomeConfig',
+    'chat.apps.ChatConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    'decouple'
 ]
 
 MIDDLEWARE = [
@@ -150,7 +154,11 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+STATICFILE_DIRS = [
+ BASE_DIR / "game/static"
+]
 
 # Login and Logout redirects
-LOGIN_REDIRECT_URL = "/challengers/profile"
+LOGIN_REDIRECT_URL = "/game/"
 LOGOUT_REDIRECT_URL = "/"
+
