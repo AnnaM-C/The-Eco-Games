@@ -10,11 +10,11 @@
 
 <!-- Profile Panel -->
 
-<div id = profilePane>
+<div id = "profilePane">
 
     <div class = "d-flex justify-content-center" >
 
-        <div class="card mb-3 border border-dark" style="max-width: 540px;" id = profileCard>
+        <div class="card mb-3 border border-dark" style="max-width: 540px;" id = "profileCard">
             <div class="row g-0">
               <div class="col-md-4">
                 <img src="{% static 'defaultprofile.png' %}" class="img-fluid rounded-start rounded-circle" alt="You!">
@@ -37,7 +37,7 @@
 
 <!-- Points Widget -->
 
-<div class="row row-cols-1 row-cols-md-3 g-4" id = profileWidgets>
+<div class="row row-cols-1 row-cols-md-3 g-4" id = "profileWidgets">
 
     <!-- Points -->
 
@@ -99,11 +99,26 @@
 
     </div>
 
-
-
-
 </div>
 
+<!-- -->
+
+<div id = "profilePane">
+
+      <div class = "d-flex justify-content-center" >
+  
+          <div class="card mb-3 border border-dark" style="max-width: 540px;" id = "profileCard">
+
+            <div class="card-header"><p class="card-text">Riddle of the month</p></div>       
+
+            <div class="card-body"><p class="card-text">{{api_response}}</p></div>
+
+          </div>
+      
+      </div>
+  
+  
+</div>
 
 
 {% endblock %}

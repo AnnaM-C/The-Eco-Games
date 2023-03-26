@@ -1,26 +1,26 @@
 from django import forms 
 from .models import *
+import random
 
-class ActivityForm(forms.ModelForm):
+# TO DO: reshuffle everytime app is launched or reshuffle everytime page is reloaded? I have functionality for both
+
+class UserActivityForm(forms.ModelForm):
+
+    # items = list(Activity.objects.all())
+
+    # random_items = random.sample(items, 3)
+
+    # queryset=Activity.objects.filter(id__in=[getattr(id,'id') for id in random_items])
+
+    activities = forms.ModelMultipleChoiceField(queryset=Activity.objects.all(),widget=forms.CheckboxSelectMultiple)
+    
     # create meta class
+
     class Meta:
-    # specify model to be used
-        model = Activity
-        fields = ['title', 'description', 'date', 'author']
-        widgets = {
-            'title': forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Event Title',
-            }),
-            'description': forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Event Description',
-            'rows' : 25,
-            'cols' : 60,
-            }),
-            'date': forms.DateInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'yyyy-mm-dd',
-            }),
-            'author': forms.HiddenInput(),
+
+        model = ActivityLog
+        fields = ['date', 'challenger', 'activities']
+        widgets= {
+            'challenger': forms.HiddenInput(),
         }
+        date=forms.DateField()

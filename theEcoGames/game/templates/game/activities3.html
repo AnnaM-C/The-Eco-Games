@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<body>
+    
+	<h1 id = "activityTitle">Activity Points Calculator</h1>
+	<p>Select the activities you've completed and we'll calculate your total points!</p>
+	<form>
+		<fieldset>
+			<legend>Activities</legend>
+			<label><input type="checkbox" name="activity" value="run">Run (100 points)</label><br>
+			<label><input type="checkbox" name="activity" value="bike ride">Bike ride(90 points)</label><br>
+			<label><input type="checkbox" name="activity" value="swim">Swim (120 points)</label><br>
+            <label><input type="checkbox" name="activity" value="laundry">Laundry (80 points)</label><br>
+            <label><input type="checkbox" name="activity" value="10 minute shower">10 minute shower (80 points)</label><br>
+            <label><input type="checkbox" name="activity" value="5 minute shower">5 minute shower (70 points)</label><br>
+            <label><input type="checkbox" name="activity" value="3 minute shower">3 minute shower (50 points)</label><br>
+		</fieldset>
+        
+        <fieldset>
+			<legend>Add New Activity</legend>
+			<label>Activity Name: <input type="text" name="newActivityName"></label><br>
+			<label>Points: <input type="number" name="newActivityPoints"></label><br>
+			<input type="button" value="Add Activity" onclick="addActivity()">
+		</fieldset>
+	
+		<input type="button" id = "activityButton" value="Calculate Points" onclick="calculatePoints()">
+		<div id="total-points"></div>
+	</form>
+
+
+    
+</body>
+
+{% endblock %}
+=======
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Activity Points Calculator</title>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="script.js"></script>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <!-- <a class="navbar-brand" href="#">WebSiteName</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              
+                
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+          </div> -->
+        </div>
+      </nav>
+
+	<h1>Activity Points Calculator</h1>
+	<p>Select the activities you've completed and we'll calculate your total points!</p>
+	<form>
+		<fieldset>
+			<legend>Activities</legend>
+			<label><input type="checkbox" name="activity" value="run">Run (100 points)</label><br>
+			<label><input type="checkbox" name="activity" value="bike ride">Bike ride(90 points)</label><br>
+			<label><input type="checkbox" name="activity" value="swim">Swim (120 points)</label><br>
+            <label><input type="checkbox" name="activity" value="laundry">Laundry (80 points)</label><br>
+            <label><input type="checkbox" name="activity" value="10 minute shower">10 minute shower (80 points)</label><br>
+            <label><input type="checkbox" name="activity" value="5 minute shower">5 minute shower (70 points)</label><br>
+            <label><input type="checkbox" name="activity" value="3 minute shower">3 minute shower (50 points)</label><br>
+		</fieldset>
+        <fieldset>
+			<legend>Add New Activity</legend>
+			<label>Activity Name: <input type="text" name="newActivityName"></label><br>
+			<label>Points: <input type="number" name="newActivityPoints"></label><br>
+			<input type="button" value="Add Activity" onclick="addActivity()">
+		</fieldset>
+		<!-- <fieldset>
+			<legend>Mental Activities</legend>
+			<label><input type="checkbox" name="activity" value="read">Read (3 points)</label><br>
+			<label><input type="checkbox" name="activity" value="write">Write (4 points)</label><br>
+			<label><input type="checkbox" name="activity" value="meditate">Meditate (2 points)</label><br>
+		</fieldset> -->
+		<input type="button" value="Calculate Points" onclick="calculatePoints()">
+		<div id="total-points"></div>
+	</form>
+
+
+    
+</body>
+</html>
