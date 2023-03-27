@@ -5,7 +5,7 @@
 <!-- <nav class="navbar" id = "horizontalnav" style="background-color: #549B78;"> -->
 <nav class="navbar navbar-expand-lg bg-success" id = "horizontalnav">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'homeapp:home' %}">
+      {% comment %} <a class="navbar-brand" href="{% url 'homeapp:home' %}"> {% endcomment %}
         <img src="{% static 'The Eco Logo.svg' %}" alt="The Eco Games" width="30" height="24" class="d-inline-block align-text-top">
         <strong>The Eco Games | Beta</strong> 
         <!-- Note: Turn the words into a vector instead of using text so its inline and can easily scale up -->
@@ -29,7 +29,7 @@
 
           <!-- Maps -->
 
-          <a class="nav-link" title = "Maps" href="{% url 'gameapp:maps' %}">
+          <a class="nav-link" title = "Maps" href="{% url 'maps' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
               <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
             </svg>
@@ -37,20 +37,25 @@
 
           <!-- Activites -->
 
-          <a class="nav-link" title = "Log an Activity" href="{% url 'gameapp:activities' %}">
+          <a class="nav-link" title = "Log an Activity" href="{% url 'activities' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bicycle" viewBox="0 0 16 16">
               <path d="M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5zm1.5 2.443-.508.814c.5.444.85 1.054.967 1.743h1.139L5.5 6.943zM8 9.057 9.598 6.5H6.402L8 9.057zM4.937 9.5a1.997 1.997 0 0 0-.487-.877l-.548.877h1.035zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765l1.027-1.643zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53L11.55 8.623z"/>
             </svg>
           </a>
 
           <!-- Profile -->
-
-          <a class="nav-link" title = "Profile" href = "{% url 'gameapp:profile' %}">
+          {% if user.is_authenticated %}
+          <a class="nav-link" title = "Profile" href = "{% url 'profile' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
             </svg>
           </a>
+          <div class="nav-item"> <a class="nav-user" href="{% url 'logout' %}">Logout</a> </div>
+          {% else %}
+          <li class="nav-item"> <a class="nav-user" style="margin-right: 10px" href="{% url 'signup_user' %}">Signup</a> </li>
+          <li class="nav-item"> <a class="nav-user" href="{% url 'login' %}">Login</a> </li>
+          {% endif%}
         </div>
       </div>
 
