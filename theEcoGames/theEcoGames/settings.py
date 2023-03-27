@@ -162,3 +162,9 @@ STATICFILE_DIRS = [
 LOGIN_REDIRECT_URL = "/game/"
 LOGOUT_REDIRECT_URL = "/"
 
+ASGI_APPLICATION = "project.routing.application" #routing.py will be created later
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+        }
+    }

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
+from chat.views import chat_box
 
 """theEcoGames URL Configuration
 
@@ -19,7 +20,8 @@ Including another URLconf
 urlpatterns = [
     path('', include('home.urls')),
     # path('contact/', include('contact.urls', namespace='contactapp')),
-    path('games/', include('game.urls')),
+    path('game/', include('game.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path("chat/<str:chat_box_name>/", chat_box, name="chat"),
 ]

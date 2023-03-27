@@ -2,7 +2,10 @@ from django import forms
 from .models import *
 import random
 
-# TO DO: reshuffle everytime app is launched or reshuffle everytime page is reloaded? I have functionality for both
+# TO DO: reshuffle everytime app is launched or reshuffle everytime page is reloaded in view? I have functionality for both
+# PROS and CONS
+# Filtering in form; advantage is if user comes back to page it won't change; disadvantage is won't get variety
+# Filtering in view; advantage is that user is presented with other options more frequently
 
 class UserActivityForm(forms.ModelForm):
 

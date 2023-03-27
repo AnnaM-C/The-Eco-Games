@@ -55,7 +55,7 @@ def profile(request):
             # Save database object
 
             riddle.save()
-            
+                
         else:
             print("Error:", response.status_code, response.text)
     else:
@@ -110,20 +110,22 @@ def createActivitiesView(request):
     
     # Get all activities
 
-    items = list(Activity.objects.all())
+    # items = list(Activity.objects.all())
 
-    # Randomise activity list 
+    # # Randomise activity list 
 
-    random_items = random.sample(items, 3)
+    # random_items = random.sample(items, 3)
 
-    # Convert back to queryset
+    # # Convert back to queryset
 
-    queryset=Activity.objects.filter(id__in=[getattr(id,'id') for id in random_items])
-    
+    # queryset=Activity.objects.filter(id__in=[getattr(id,'id') for id in random_items])
+
     # Reassign activities for form field 
 
-    form.fields['activities'].queryset=queryset
-
+    # form.fields['activities'].queryset=queryset
+    # queryset=Activity.objects.all().order_by('?')[:3]
+    # form.fields['activities'].queryset=queryset
+    # print(queryset)
     if(request.method == 'POST'):
 
         if form.is_valid():
@@ -175,7 +177,7 @@ def createActivitiesView(request):
                 # Get points for each activity
 
                 points=getattr(activity, 'points')
-
+                print(points)
                 score = score + points
 
             # Update the database with players new score

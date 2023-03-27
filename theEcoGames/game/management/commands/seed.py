@@ -17,6 +17,12 @@ class Command(BaseCommand):
 
         n=Activity(title="Washing", points=10) 
         n.save()
+
+        n=Activity(title="Showered for 5 minutes", points=10) 
+        n.save()
+
+        n=Activity(title="Showered for 1 minute", points=10) 
+        n.save()
         self.stdout.write('done.')
 
         Riddles.objects.all().delete()
