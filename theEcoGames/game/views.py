@@ -13,8 +13,6 @@ import os
 from decouple import config
 import random
 
-# Comment
-
 # Profile view
 
 @login_required
