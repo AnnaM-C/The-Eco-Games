@@ -16,7 +16,8 @@ body {
   box-shadow: 5px 5px 25px; }
 
 #featuredCardBody {
-  overflow: hidden; }
+  overflow: hidden;
+  transition: font-size 0.5s; }
 
 #featuredCardBody a {
   opacity: 0%; }
@@ -25,6 +26,9 @@ body {
   margin-top: 5%;
   float: left;
   font-size: 300%; }
+
+#featuredCardBody:hover {
+  font-size: 105%; }
 
 #featuredCup {
   float: right;
@@ -35,7 +39,11 @@ body {
   width: 40vw;
   height: 20vh;
   box-shadow: 5px 5px 20px black;
-  overflow: hidden; }
+  overflow: hidden;
+  transition: font-size 0.5s; }
+
+#homeShortcuts:hover {
+  font-size: 105%; }
 
 #recordImage {
   width: 30%;

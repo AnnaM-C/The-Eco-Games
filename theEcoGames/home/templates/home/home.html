@@ -22,7 +22,7 @@
 
 <div class="card" id = "featuredCard">
     <div class="card-body" id = "featuredCardBody">
-      <h3 class="card-title">Compete for <strong>April's Eco Cup</strong> !</h3>
+      <h3 class="card-title" id = featuredText>Compete for <strong>April's Eco Cup</strong>!</h3>
       <img src = "{% static 'ucl.png' %}" id = "featuredCup">
 
         <a href="#" class="btn btn-primary stretched-link">Go!</a>
@@ -54,7 +54,7 @@
       <div class="card bg-success text-white"  id = "homeShortcuts">
         <div class="card-body">
           
-          <h5 class="card-title"><strong>View the Map!</strong></h5>
+          <h5 class="card-title"><strong>View the Map</strong></h5>
           <img src = "{% static 'map.png' %}" id = "mapImage">
           <a href="{% url 'gameapp:maps' %}" class="btn btn-success stretched-link">Go somewhere</a>
         </div>
