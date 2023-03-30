@@ -27,14 +27,15 @@ SECRET_KEY = 'django-insecure-k9nx3ct1^0)=&yva0#ajv_y*4+bh6umzs8&nri67cgzbs@&aec
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
+ASGI_APPLICATION = 'theEcoGames.asgi.application'
 INSTALLED_APPS = [
-    'sass_processor',
+    'daphne',
     'contact.apps.ContactConfig',
+    'channels',
     'game.apps.GameConfig',
     'home.apps.HomeConfig',
     'chat.apps.ChatConfig',
@@ -44,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
-    'decouple'
+    'decouple',
+    'sass_processor',
 ]
 
 MIDDLEWARE = [
@@ -162,7 +163,6 @@ STATICFILE_DIRS = [
 LOGIN_REDIRECT_URL = "/game/"
 LOGOUT_REDIRECT_URL = "/"
 
-ASGI_APPLICATION = "project.routing.application" #routing.py will be created later
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': "channels.layers.InMemoryChannelLayer"

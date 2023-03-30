@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Chat Rooms</title>
+{% endblock title %}
+{% block content %}
+<h1>Chat Rooms</h1>
+<ul>
+<li><a href="{% url 'chatapp:room' 'General' %}">General Discussion</a></li>
+<li><a href="{% url 'chatapp:room' 'Support' %}">Support</a></li>
+<li><a href="{% url 'chatapp:room' 'Features' %}">New Features</a></li>
+</ul>
+{% endblock content %}
