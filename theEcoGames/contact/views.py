@@ -39,5 +39,3 @@
 #             messages.add_message(request, messages.ERROR, 'Invalid Form Data; Message Not Sent')
 
 #     return render(request, 'home/contact.html', {"form": form}) # Shows the form if request method was GET
-
-

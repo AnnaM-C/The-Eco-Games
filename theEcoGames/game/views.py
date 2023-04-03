@@ -194,7 +194,7 @@ def createActivitiesView(request):
 
             form.save()
 
-            return redirect('profile')
+            return redirect('gameapp:profile')
 
     context['form']= form
     return render(request, "game/activities.html", context)

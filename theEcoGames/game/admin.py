@@ -12,6 +12,7 @@ admin.site.register(Location)
 admin.site.register(Faction)
 admin.site.register(Challenger)
 admin.site.register(Riddles)
+admin.site.register(Category)
 
 
 # admin.site.register(ManyToManyTable_ActivityForm)
