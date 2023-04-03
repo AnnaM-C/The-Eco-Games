@@ -1,7 +1,76 @@
 {% extends "base.html" %}
-{% block title %} 
-{% endblock title%} 
+{% load static %}
+
 {% block content %}
-<title>Home Page</title>
+
+<!-- Greetings! -->
+
+<br><br>
+
+{% if user.is_authenticated %} 
+    <h1 id = "homeGreeting"><strong>Back for more, {{currentUser.username}}?</strong></h1>
+{% else %}
+    <h1 id = "homeGreeting"><strong>Ready to compete?</strong></h1>
+{% endif %}
+
+<br><br>
+
+<!-- Competition / Featured Card -->
+
+<div class="d-flex justify-content-center"> 
+
+
+<div class="card" id = "featuredCard">
+    <div class="card-body" id = "featuredCardBody">
+      <h3 class="card-title" id = featuredText>Compete for <strong>April's Eco Cup</strong>!</h3>
+      <img src = "{% static 'ucl.png' %}" id = "featuredCup">
+
+        <a href="#" class="btn btn-primary stretched-link">Go!</a>
+
+    </div>
+  </div>
+
+</div>
+
+<br><br>
+
+<!-- Quick Widgets -->
+
+<div class = "d-flex justify-content-center">
+
+  <div class="row row-cols-2 row-cols-sm-1 g-4">
+
+    <div class="col-sm-6 row-sm-6">
+
+      <div class="card bg-primary text-white"  id = "homeShortcuts" >
+        <div class="card-body">
+          <h5 class="card-title"><strong>Record Today's Activities</strong></h5>
+          <img src = "{% static 'watch.png' %}" id = "recordImage">
+          <a href="{% url 'gameapp:activities' %}" class="btn btn-primary stretched-link">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6" >
+
+      <div class="card bg-success text-white"  id = "homeShortcuts">
+        <div class="card-body">
+          
+          <h5 class="card-title"><strong>View the Map</strong></h5>
+          <img src = "{% static 'map.png' %}" id = "mapImage">
+          <a href="{% url 'gameapp:maps' %}" class="btn btn-success stretched-link">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<br><br><br>
+
+
+
 
 {% endblock content %}

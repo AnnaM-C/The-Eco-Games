@@ -5,6 +5,81 @@ body {
   background-attachment: fixed;
   background-size: cover; }
 
+#homeGreeting {
+  margin-left: 2%;
+  font-size: 300%; }
+
+#featuredCard {
+  width: 90rem;
+  height: 15rem;
+  background-color: rgba(245, 245, 245, 0.878);
+  box-shadow: 5px 5px 25px; }
+
+#featuredCardBody {
+  overflow: hidden;
+  transition: font-size 0.5s; }
+
+#featuredCardBody a {
+  opacity: 0%; }
+
+#featuredCardBody h3 {
+  margin-top: 5%;
+  float: left;
+  font-size: 300%; }
+
+#featuredCardBody:hover {
+  font-size: 105%; }
+
+#featuredCup {
+  float: right;
+  margin-right: 1%;
+  top: -10%; }
+
+#homeShortcuts {
+  width: 40vw;
+  height: 20vh;
+  box-shadow: 5px 5px 20px black;
+  overflow: hidden;
+  transition: font-size 0.5s; }
+
+#homeShortcuts:hover {
+  font-size: 105%; }
+
+#recordImage {
+  width: 30%;
+  float: right;
+  position: relative;
+  top: -20%; }
+
+#mapImage {
+  width: 50%;
+  float: right;
+  position: relative;
+  top: -30%; }
+
+#homeShortcuts h5 {
+  text-align: left;
+  margin: 5%;
+  font-size: 200%; }
+
+#homeShortcuts a {
+  opacity: 0%; }
+
+#tipsTitle {
+  margin-left: 2%;
+  font-size: 300%; }
+
+#tipsSubtitle {
+  margin-left: 2.5%;
+  font-size: medium; }
+
+#tipGrid .card-body {
+  box-shadow: 2px 2px 30px black;
+  transition: font-size 0.5s; }
+
+#tipGrid .card-body:hover {
+  font-size: 105%; }
+
 #profilePane {
   padding-top: 5%; }
 
@@ -53,7 +128,8 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #198754; }
+  background-color: #198754;
+  box-shadow: 10px 10px 50px black; }
 
 .formfield {
   display: block; }
@@ -73,57 +149,6 @@ body {
 .error, .errorlist {
   background-color: #781212;
   text-align: center; }
-
-#quote h1 {
-  margin: 20px; }
-
-.b1 {
-  display: flex;
-  background-color: antiquewhite;
-  margin-left: 40px;
-  margin-right: 40px;
-  box-shadow: black;
-  border: solid; }
-
-.b2 {
-  /* background-color: aliceblue; */
-  min-width: 150px;
-  text-align: center;
-  padding: 10px;
-  margin: 10px; }
-
-.b3 {
-  /* background-color: aliceblue; */
-  min-width: 200px;
-  /* text-align: center; */
-  padding-right: 20px;
-  margin: 20px; }
-
-.b4 {
-  display: flex;
-  padding-left: 40px;
-  padding-right: 40px;
-  /* background-color: aliceblue; */ }
-
-.b5 {
-  min-width: 200px;
-  background-color: #6ebbea;
-  padding: 20px;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px; }
-
-.b6 {
-  background-color: #44a335;
-  padding: 20px 20px 0px 20px;
-  min-width: 180px;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-bottom: 20px; }
-
-button {
-  margin-top: 50px;
-  float: right; }
 
 #activityTitle {
   text-align: center; }

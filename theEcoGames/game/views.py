@@ -199,3 +199,12 @@ def createActivitiesView(request):
     context['form']= form
     return render(request, "game/activities.html", context)
 
+
+
+
+
+def tipsIndex(request):
+    context = {}
+
+    return render(request, "game/tipsIndex.html", context)
+

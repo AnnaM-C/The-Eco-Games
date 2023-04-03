@@ -8,7 +8,18 @@ from django.urls import reverse_lazy
 
 def home(request):
     context = {}
+    # Get the logged in user's name
+
+    currentUser = request.user
+
+    context["currentUser"] = currentUser
+
+
+
     return render(request, 'home/home.html', context)
+
+
+    
 
 # Sign up view
 

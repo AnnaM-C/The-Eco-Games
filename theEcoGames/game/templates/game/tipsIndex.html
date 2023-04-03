@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+
+<!-- Note these will be changed to dynamically generating cards once things in the backend are ready -->
+
+
+{% block content %}
+
+<br><br>
+
+<h1 id = "tipsTitle"><strong>Your Personalised Tips</strong></h1>
+<h5 id = "tipsSubtitle">Reduce your carbon footprint even more!</h5>
+
+<!-- Personalised Tips -->
+
+<div class="row m-auto row-cols-1 row-cols-md-4 g-4" id = "tipGrid">
+
+    <div class="col">
+      <div class="card text-white bg-danger h-100" style = "width: 322px;"  id = "tipCard">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Thermostat</strong></h5>
+          <p class="card-text">You can save energy by using the heating less on warmer days.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card text-white bg-success h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Driving</strong></h5>
+          <p class="card-text">Try driving your car in less congested times, or take a new route.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card text-white bg-primary h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Showers</strong></h5>
+          <p class="card-text">Try shortening your showers down to 15 minutes, you currently average 36 minutes.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card bg-warning h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Devices</strong></h5>
+          <p class="card-text">Did you know? Your phone can charge when the grid index is low! Turn it on from your phone settings!</p>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+
+  
+  <br> <br>
+
+  <!-- Trending Tips -->
+
+  <h1 id = "tipsTitle"><strong>Trending in your area</strong></h1>
+  <h5 id = "tipsSubtitle">See what people around you are doing...</h5>
+
+  <div class="row m-auto row-cols-1 row-cols-md-4 g-4" id = "tipGrid">
+
+
+    <div class="col">
+      <div class="card text-white bg-danger h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Thermostat</strong></h5>
+          <p class="card-text">You can save energy by using the heating less on warmer days.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card text-white bg-success h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Driving</strong></h5>
+          <p class="card-text">Try driving your car in less congested times, or take a new route.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card text-white bg-primary h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Showers</strong></h5>
+          <p class="card-text">Try shortening your showers down to 15 minutes, you currently average 36 minutes.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card bg-warning h-100" style = "width: 322px;">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Devices</strong></h5>
+          <p class="card-text">Did you know? Your phone can charge when the grid index is low! Turn it on from your phone settings!</p>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <br><br>
+
+  <h5 id = "tipsTitle"><strong>Keep tracking activities and we'll tune your feed!</strong></h5>
+
+  <br><br><br><br>
+    
+
+
+{% endblock content %}
