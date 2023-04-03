@@ -26,5 +26,5 @@ urlpatterns = [
     path('game/', include('game.urls', namespace = 'gameapp')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path("chat/<str:chat_box_name>/", chat_box, name="chat"),
+    path("chat/", include('chat.urls', namespace = 'chatapp')),
 ]
