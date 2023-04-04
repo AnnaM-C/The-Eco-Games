@@ -1,6 +1,8 @@
 from django import forms 
 from .models import *
 import random
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # TO DO: reshuffle everytime app is launched or reshuffle everytime page is reloaded in view? I have functionality for both
 # PROS and CONS
@@ -27,3 +29,18 @@ class UserActivityForm(forms.ModelForm):
             'challenger': forms.HiddenInput(),
         }
         date=forms.DateField()
+
+
+class locationUpdateForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Challenger
+        fields = ['postcode']
+
+        widgets = {
+            'postcode': forms.TextInput(attrs={
+            'class': 'form-control', # Bootstrap and all
+            'placeholder': 'Enter your postcode:'
+            }),
+        }

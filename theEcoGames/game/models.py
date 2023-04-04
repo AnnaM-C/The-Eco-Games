@@ -60,7 +60,7 @@ class UserTip(models.Model):
 class Challenger(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    postcode=models.CharField(max_length=2)
+    postcode=models.CharField(max_length=2) # Change this to max_length = 4
 
 
 class Riddles(models.Model):

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.views.generic import ListView, CreateView, DetailView, FormView
-from .forms import UserActivityForm
+from .forms import UserActivityForm, locationUpdateForm
 from django.urls import reverse_lazy
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +13,8 @@ import os
 from decouple import config
 import random
 
+from django.http import HttpResponse
+from django.contrib import messages
 # Profile view
 
 @login_required
@@ -78,7 +80,45 @@ def profile(request):
 
     # Render profile page
 
+    # Get the challenger information
+
+    context["challenger"] = currentUser.challenger
+
+
+
+    # Getting the Location Update from
+    locationForm = locationUpdateForm(request.POST or None)
+    context["locationForm"] = locationForm
+
     return render(request, 'game/profile.html', context)
+
+
+def locationUpdateView(request):
+
+    print("Started!")
+
+    context = {}
+    currentUser = request.user
+
+    context["currentUser"] = currentUser
+    context["challenger"] = currentUser.challenger
+
+    currentChallenger = get_object_or_404(Challenger, user = currentUser)
+
+    form = locationUpdateForm(request.POST or None, instance = currentChallenger)
+    print(form.is_bound)
+
+    if form.is_valid():
+        print("HAYA")
+        form.save()
+        messages.add_message(request, messages.SUCCESS, 'Location Updated')
+        return redirect('gameapp:profile')
+    
+    else:
+        messages.add_message(request, messages.ERROR, 'Something went wrong!')
+        print("Something went wrong!")
+        print(form.errors.as_data())
+        return render(request, 'game/profile.html', context)    
 
 
 # TO DO: Leaderboard view
@@ -207,4 +247,3 @@ def tipsIndex(request):
     context = {}
 
     return render(request, "game/tipsIndex.html", context)
-

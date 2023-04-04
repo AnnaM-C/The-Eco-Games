@@ -5,7 +5,10 @@ app_name = "gameapp"
 
 urlpatterns = [
     # Profile View
-    path('', views.profile, name ='profile'),
+    path('', views.profile, name ='profile'), # Change to account
+
+    # Update Location View
+    path('locationupdate', views.locationUpdateView, name = 'locationUpdater'),
 
     # Leaderboard View
     path('leaderboards', views.leaderboards, name='leaderboards'),
