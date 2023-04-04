@@ -126,6 +126,12 @@ def locationUpdateView(request):
 @login_required
 def leaderboards(request):
     context = {}
+
+    user = request.user
+    context['currentUser'] = user
+    context["topChallengers"] =  Challenger.objects.all().order_by('score')[:3]
+
+
     return render(request, 'game/leaderboards.html', context)
 
 # TO DO: Maps view
