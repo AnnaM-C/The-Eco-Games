@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import *
-from django.views.generic import ListView, CreateView, DetailView, FormView
-from .forms import UserActivityForm
+from django.views.generic import ListView, CreateView, DetailView, FormView, View
+# from .forms import UserActivityForm
 from django.urls import reverse_lazy
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,7 +11,14 @@ import datetime, calendar
 from django.shortcuts import (get_object_or_404, render, redirect)
 import os
 from decouple import config
+from django.http import JsonResponse
 import random
+from datetime import date
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
+from django.core.serializers import deserialize
+from django.http import JsonResponse
+
 
 # Profile view
 
@@ -99,109 +106,221 @@ def maps(request):
 # TO DO: Form validation - Add in messages.add_message(request, messages.SUCCESS, 'Event Created' / messages.add_message(request, messages.ERROR, 'Invalid Form Data; Event not created')
 # TO DO: Adapt score/points based on sustainability index
 
-@login_required
-def createActivitiesView(request):
+# @login_required
+# def createActivitiesView(request):
 
-    context = {}
+#     context = {}
 
-    # Form
+#     # Form
 
-    form = UserActivityForm(request.POST or None,initial={'challenger':request.user})
+#     form = UserActivityForm(request.POST or None,initial={'challenger':request.user})
     
-    # Get all activities
+#     # Get all activities
 
-    # items = list(Activity.objects.all())
+#     # items = list(Activity.objects.all())
 
-    # # Randomise activity list 
+#     # # Randomise activity list 
 
-    # random_items = random.sample(items, 3)
+#     # random_items = random.sample(items, 3)
 
-    # # Convert back to queryset
+#     # # Convert back to queryset
 
-    # queryset=Activity.objects.filter(id__in=[getattr(id,'id') for id in random_items])
+#     # queryset=Activity.objects.filter(id__in=[getattr(id,'id') for id in random_items])
 
-    # Reassign activities for form field 
+#     # Reassign activities for form field 
 
-    # form.fields['activities'].queryset=queryset
-    # queryset=Activity.objects.all().order_by('?')[:3]
-    # form.fields['activities'].queryset=queryset
-    # print(queryset)
-    if(request.method == 'POST'):
+#     # form.fields['activities'].queryset=queryset
+#     # queryset=Activity.objects.all().order_by('?')[:3]
+#     # form.fields['activities'].queryset=queryset
+#     # print(queryset)
+#     if(request.method == 'POST'):
 
-        if form.is_valid():
+#         if form.is_valid():
 
-            # get date from post variable
+#             # get date from post variable
 
-            date=form.cleaned_data['date']
+#             date=form.cleaned_data['date']
 
-            # Set API header
+#             # Set API header
 
-            headers = {
-                'Accept': 'application/json'
-            }
+#             headers = {
+#                 'Accept': 'application/json'
+#             }
 
-            # Set API URL
+#             # Set API URL
 
-            api_url=f'https://api.carbonintensity.org.uk/intensity/{date}'
+#             api_url=f'https://api.carbonintensity.org.uk/intensity/{date}'
 
-            # Request to API
+#             # Request to API
 
-            response=requests.get(api_url, params={}, headers=headers) 
+#             response=requests.get(api_url, params={}, headers=headers) 
 
-            # Get the carbon index
+#             # Get the carbon index
 
-            js=response.json()
+#             js=response.json()
 
-            #  Parse JSON reponse
+#             #  Parse JSON reponse
 
-            index=js['data'][0]['intensity']['index']
+#             index=js['data'][0]['intensity']['index']
 
-            # Get number of logged activities
+#             # Get number of logged activities
 
-            activities=request.POST.getlist('activities')
+#             activities=request.POST.getlist('activities')
 
-            # Get player object
+#             # Get player object
 
-            player, created = Challenger.objects.get_or_create(user=request.user)
+#             player, created = Challenger.objects.get_or_create(user=request.user)
 
-            # Get the players current score from DB
+#             # Get the players current score from DB
 
-            score=player.score
+#             score=player.score
 
-            # All points for each activity logged, are added to the users current score
+#             # All points for each activity logged, are added to the users current score
 
-            for id in activities:
+#             for id in activities:
 
-                activity=Activity.objects.get(id=id)
+#                 # TO DO: in here get the user input of activity time from AJAX,
+#                 # then add them to each activity object.
 
-                # Get points for each activity
+#                 activity=Activity.objects.get(id=id)
 
-                points=getattr(activity, 'points')
-                print(points)
-                score = score + points
+#                 # Get points for each activity
 
-            # Update the database with players new score
+#                 points=getattr(activity, 'points')
+#                 print(points)
+#                 score = score + points
 
-            player.score=score
+#             # Update the database with players new score
 
-            # Save player
+#             player.score=score
 
-            player.save()
+#             # Save player
 
-            # TO DO: Adapt score/points based on sustainability index
+#             player.save()
 
-            form.instance.challenger=request.user
+#             # TO DO: Adapt score/points based on sustainability index
 
-            form.save()
+#             form.instance.challenger=request.user
 
-            return redirect('gameapp:profile')
+#             form.save()
 
-    context['form']= form
-    return render(request, "game/activities.html", context)
+#             return redirect('gameapp:profile')
+
+#     context['form']= form
+#     return render(request, "game/activities.html", context)
 
 
 
+def categoriesActivitesView(request):
+    context={}
+    
+    context['category_list'] = Category.objects.all()
 
+    # for category in categories:
+    #     name = getattr(category, 'name')
+    #     context[name] = name
+    return render(request, "game/activitiesCategory.html", context)
+
+
+class ActivitiesDetailView(LoginRequiredMixin, DetailView):
+    model=Category
+    template_name="game/activitiesDetail.html"
+    def get_context_data(self, **kwargs):
+        category=get_object_or_404(Category, pk=self.kwargs['pk'])
+        player, created = Challenger.objects.get_or_create(user=self.request.user)
+        player.save()
+        cart, created = UserCart.objects.get_or_create(challenger=player)
+        cart.save()
+        context={}
+        # if(is_admin(self.request.user)):
+        context['activity_list']=Activity.objects.filter(cat=category)
+        print(context)
+        context['category']=category
+        context['cart'] = cart
+        # context['line_items'] = LineItem.objects.filter(cart=cart, dateRecorded = date.today()) #set up the line items
+        context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
+        test=Activity.objects.filter(id=78)
+        print("activity-",test)
+        val=test.values('type')
+        # val=test.type
+        print(val)
+
+        return context
+
+
+
+class AddLineItem(LoginRequiredMixin, View):
+     def post(self, request):
+        duration=request.POST['duration']
+        time=request.POST['time']
+        activityId=request.POST['activityId']
+        activity=get_object_or_404(Activity, id=activityId)
+        player = Challenger.objects.get(user=request.user)
+        cart = UserCart.objects.get(challenger=player)
+
+        # if statement to check if line item not submitted already exists
+        if LineItem.objects.filter(checkedOut=False, activity=activity, cart=cart).exists():
+            return JsonResponse({'cart_success': False}, status=200)
+        elif LineItem.objects.filter(dateRecorded=date.today(), activity=activity, cart=cart).exists():
+            return JsonResponse({'not_cart_success': False}, status=200)
+        else:
+            # Everytime we add a line item we need to add the cart and activity ourselves
+            lineItem=LineItem(timeRecorded=time, dateRecorded=date.today(), activityDuration=duration, activity=activity, cart=cart)
+            lineItem.save()
+            itemId=getattr(lineItem, 'pk')
+            
+            line_item_html = render_to_string('game/lineItem.html', {'item': lineItem, 'item-id': itemId})
+
+            # lineItem.activityDuration=time
+            return HttpResponse(line_item_html)
+
+
+# method to calculate all the points and send them to the server
+# ajax doesnt have to render anything so no need for server to return anything to ajax
+# just a success message will do
+
+class RecordPoints(LoginRequiredMixin, View):
+     def post(self, request):
+        if request.method == 'POST':
+        # grab all those items you got
+        # i need to have a list of all the list items pk id
+            list_items=request.POST.getlist('list_items[]')
+        # then i can filter and get the objects by id
+            print(list_items)
+
+            for id in list_items:
+                itemQS=LineItem.objects.filter(pk=id)
+                itemQS.update(checkedOut=True)
+
+                item=LineItem.objects.get(pk=id)
+
+                activity=getattr(item, 'activity')
+
+                activity_point=getattr(activity,'points')
+
+                # Get player object
+                player = Challenger.objects.get(user=request.user)
+
+                # Get the players current score from DB
+                old_score=player.score
+                print(old_score)
+                new_score=old_score+activity_point
+                print(new_score)
+                player.score=new_score
+                player.save()
+
+            return JsonResponse({'message': 'Elements received and processed successfully.'})
+        else:
+            return JsonResponse({'message': 'No elements found.'})
+
+
+class SetDurationField(LoginRequiredMixin, View):
+    def get(self, request):
+
+        duration_item_html = render_to_string('game/durationField.html')
+
+        # lineItem.activityDuration=time
+        return HttpResponse(duration_item_html)
 
 def tipsIndex(request):
     context = {}

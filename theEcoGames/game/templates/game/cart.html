@@ -1,0 +1,102 @@
+
+    <div class="container">
+      
+      {% comment %} <ul class="cart-right">
+        <li><a  href="#" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a></li>
+      </ul> <!--end navbar-right --> {% endcomment %}
+      <form>
+        {% csrf_token %}
+        <div class="shopping-cart">
+          <div class="shopping-cart-header">
+            <a class="submitButton" href="" onclick="recordPoints()">Submit</a>
+              <div class="shopping-cart-total">
+              <span class="lighter-text">Total:</span>
+
+            </div>
+          </div> <!--end shopping-cart-header -->
+        {% for item in line_items %}
+          {% include 'game/lineItem.html' with item=item %}
+        {% endfor %}
+  
+        </div> <!--end shopping-cart -->
+      </form>
+    </div> <!--end container -->
+
+  <style>
+    $main-color: #6394F8;
+    $light-text: #ABB0BE;
+    
+    @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+    
+    @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+    
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font: 14px/22px "Lato", Arial, sans-serif;
+    }
+    
+    .lighter-text {
+      color: #ABB0BE;
+    }
+    
+    
+    .shopping-cart {
+      margin: 20px 0;
+      float: right;
+      background: rgb(25,135,84);
+      width: 320px;
+      position: relative;
+      border-radius: 3px;
+      padding: 20px;
+    
+    }
+    .shopping-cart:after {
+        bottom: 100%;
+        left: 89%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: rgb(25,135,84);
+        border-width: 8px;
+        margin-left: -8px;
+    }
+    
+    .submitButton {
+      background: rgb(255,193,7);
+      color:white;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      display: block;
+      border-radius: 3px;
+      font-size: 16px;
+      margin: 25px 0 15px 0;
+      
+      &:hover {
+        background: lighten($main-color, 3%);
+      }
+    }
+    
+    .clearfix:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    .line-item {
+      color: white;
+    }
+    
+
+  </style>
+  {% block script %}
+  {% load static %}
+  <!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+  {% endblock script %}

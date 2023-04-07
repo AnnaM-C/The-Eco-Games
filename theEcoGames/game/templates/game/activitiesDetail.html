@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'game/cart.html' %}
+{% include 'game/activityTRModal.html' %}
+{% include 'game/activityNTRModal.html' %}
+
+
+    <h1>{{category.name}}</h1>
+
+    {% for activity in activity_list %}
+                <h5 class="card-title">
+                    {{ activity.title}}</h5>
+            {% if activity.type == 'TR' %}
+                <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#trModal" onclick="setFields({{activity.id}})"><strong>Log Time and Duration</strong></button>
+                {% comment %} <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setFields({{activity.id}}, '{{activity.type}}')"><strong>Log Time</strong></button> {% endcomment %}
+            {% else %}
+                <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#tnrModal" onclick="setFields({{activity.id}})"><strong>Log Time</strong></button>
+            {% endif %}
+    {% endfor %}
+
+{% endblock content %}
+{% block script %}
+{% load static %}
+<!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
+<script type="text/javascript" src="{% static 'js/activityModal.js' %}"></script>
+{% endblock script %}
+
+

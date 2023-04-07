@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 
 admin.site.register(Activity)
-admin.site.register(ActivityLog)
+admin.site.register(LineItem)
 admin.site.register(Tip)
 admin.site.register(MeterReading)
 admin.site.register(Award)
