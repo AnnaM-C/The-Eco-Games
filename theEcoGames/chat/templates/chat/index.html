@@ -1,12 +1,29 @@
-{% extends 'base.html' %}
 {% block title %}
-<title>Chat Rooms</title>
-{% endblock title %}
-{% block content %}
-<h1>Chat Rooms</h1>
-<ul>
-<li><a href="{% url 'chatapp:room' 'General' %}">General Discussion</a></li>
-<li><a href="{% url 'chatapp:room' 'Support' %}">Support</a></li>
-<li><a href="{% url 'chatapp:room' 'Features' %}">New Features</a></li>
-</ul>
+<div class="chat-box">
+    <title>Chat Support</title>
+    {% endblock title %}
+    {% block content %}
+    <h1 class="chat-text">Chat Support</h1>
+    <ul>
+    <li><a class="chat-text" href="{% url 'chatapp:room' 'General' %}">General Discussion</a></li>
+    <li><a class="chat-text" href="{% url 'chatapp:room' 'Support' %}">Support</a></li>
+    <li><a class="chat-text" href="{% url 'chatapp:room' 'Features' %}">New Features</a></li>
+    </ul>
+</div>
+
+<style>
+    .chat-box{
+        background-color: rgb(25,135,84);
+        border-radius: 30%;
+        padding: 30px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 999;
+    }
+
+    .chat-text {
+        color: white;
+    }
+    </style>
 {% endblock content %}

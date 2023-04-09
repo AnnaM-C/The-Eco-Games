@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% include 'game/cart.html' %}
+{% comment %} {% include 'game/cart.html' %} {% endcomment %}
 {% include 'game/activityTRModal.html' %}
 {% include 'game/activityNTRModal.html' %}
 
@@ -20,10 +20,6 @@
     {% endfor %}
 
 {% endblock content %}
-{% block script %}
-{% load static %}
-<!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
-<script type="text/javascript" src="{% static 'js/activityModal.js' %}"></script>
-{% endblock script %}
+
 
 

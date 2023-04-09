@@ -1,58 +1,15 @@
 
-// var button=document.getElementById("activityButton-16")
-// var activity
-
-// Click button to open modal. 
-// Input value needs to be added to a line items 'activityDuration' field.
-    // Send to the server the activityId and userInput. On server-side. activity=Activity.Objects.get(id=response.get(data:activityId)). lineItem=LineItem.Objects.get(activity=activity). update the field somehow, field=getAttr(lineItem, 'activityDuration'). Field=response.get(data:userInput)
-// button16.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     console.log("button16 clicked")
-    // Get user input
-// })
-
-
-
-// // JavaScript code
-// $(document).ready(function() {
-//     $('.log-time-button').click(function(event) {
-//       var activityId = this.id;
-//    // Set the activity ID in the modal's hidden input field
-//    $('#aID').val(activityId);
-// });
-
 async function setFields(activityid){
   $('#aID').val(activityid);
-  document.getElementById('logTime').value = '';
 }
 
 
-
-
-// async function setFields(activityid, activityType){
-//     $('#aID').val(activityid);
-//     $.ajax({
-//       url: '/game/setDurationField',
-//       method: 'GET',
-//       data: {
-//         'activityType': activityType,
-//       },
-//       success: function(data) {
-//         // get the class you want to put the data in and call .append(data)
-//         if(activityType == 'TR') {
-//           $('.modal-body').append(data);
-//         } else {
-
-//         }
-//       }
-//     });
-// }
-
 $('#trModalButton').click(function(e) {
+  e.preventDefault() 
   // Get the activity ID and log time from the modal's form fields
   var activityId = $('#aID').val();
   var duration = $('#duration').val();
-  var time = $('#logTime').val();
+  var time = document.getElementById('ltime3').value;
   var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
   // Send the data to the server using AJAX
   $.ajax({
@@ -78,7 +35,6 @@ $('#trModalButton').click(function(e) {
       }
       // TODO: Add any necessary UI updates or redirections
       $('#trModal').modal('hide');
-      $('#trModal').trigger("reset");
     },
     error: function(xhr, status, error) {
       console.log(error);
@@ -87,12 +43,19 @@ $('#trModalButton').click(function(e) {
   });
 });
 
+
 $('#ntrModalButton').click(function(e) {
+  e.preventDefault() 
   // Get the activity ID and log time from the modal's form fields
   var activityId = $('#aID').val();
-  var time = $('#logTime').val();
+  console.log("test")
+  var time = document.getElementById('ltime4').value;
   var duration=0;
   var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
+  
+  // Debug area
+  console.log(time)
+
   // Send the data to the server using AJAX
   $.ajax({
     url: '/game/addTime',
@@ -117,7 +80,6 @@ $('#ntrModalButton').click(function(e) {
       }
       // TODO: Add any necessary UI updates or redirections
       $('#tnrModal').modal('hide');
-      $('#tnrModal').trigger("reset");
     },
     error: function(xhr, status, error) {
       console.log(error);

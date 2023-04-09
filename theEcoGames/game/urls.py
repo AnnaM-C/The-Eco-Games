@@ -31,7 +31,7 @@ urlpatterns = [
 
     path('recordPoints', views.RecordPoints.as_view(), name='record_points'),
 
-    path('setDurationField', views.SetDurationField.as_view(), name='setDurationField')
+    # path('setDurationField', views.SetDurationField.as_view(), name='setDurationField')
 
     # path('add/<int:id>', views.add_line_item_view, name='add_line_item'),
 

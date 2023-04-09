@@ -11,8 +11,7 @@
           <!-- Security token -->
           {% csrf_token %}
           <div class="modal-body">
-            <label for="logTime">Log Time</label><br>
-            <input type="time" id="logTime" name="logTime"><br>
+            <input type="time" id="ltime3" value=""><br>
             <input type="hidden" id="aID" value="{{activity.id}}">
             <label for="duration">Duration</label><br>
             <input type="text" id="duration" name="duration"><br>
@@ -28,8 +27,8 @@
       </div>
     </div>
   </div>
-  {% comment %} {% block script %}
-  {% load static %}
-  <!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
-  <script type="text/javascript" src="{% static 'js/activityModal.js' %}"></script>
-  {% endblock script %} {% endcomment %}
+{% block script %}
+{% load static %}
+<!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
+<script type="text/javascript" src="{% static 'js/activityModal.js' %}"></script>
+{% endblock script %}
