@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
 {% block title %}
-<title>Chat - {{ room_name }}</title>
+<title>Chat</title>
 {% endblock title %}
 
     
@@ -42,9 +41,26 @@
 {% endblock script %}
 
 {% block content%}
-<h1>{{ room_name }}</h1>
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-<input id="chat-message-input" type="text" size="100"><br>
-<input id="chat-message-submit" type="button" value="Send">
-<input type="hidden" id="room_name" value="{{room_name}}">
+<div class="chat-box">
+    <h1 class="chat-text">How can we help?</h1>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    <input class="chat-text" type="hidden" id="room_name" value="{{room_name}}">
+</div>
+
+<style>
+.chat-box{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.chat-text {
+    color: white;
+}
+
+</style>
+
 {% endblock content%}

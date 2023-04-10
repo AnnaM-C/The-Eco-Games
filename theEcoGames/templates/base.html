@@ -46,6 +46,8 @@
     <body>
         <!-- Load Django messages -->
         {% include 'messages.html' %}
+        {% include 'chat/index.html' %}
+        {% include 'cart.html' %}
 
         <div class="container-fluid">
             <div class="row">
@@ -61,7 +63,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'gameapp:activities' %}" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                                <a href="{% url 'gameapp:categories' %}" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
                                     <i class="bi-pencil-fill fs-1"></i>
                                 </a>
                             </li>
@@ -73,6 +75,12 @@
                             <li>
                                 <a href="{% url 'gameapp:tips' %}" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                     <i class="bi-lightbulb-fill fs-1"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="cart" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                    <i class="bi-cart2 fs-1"></i>
+                                    {% comment %} <span class="badge">3</span> {% endcomment %}
                                 </a>
                             </li>
                         </ul>
@@ -90,6 +98,12 @@
                                 {% endif%}
                             </ul>
                         </div>
+                            <div>
+                                <a href="#" id="chat-widget" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                                    <i class="bi-chat-left fs-1"></i>
+                                    {% comment %} <span class="badge">3</span> {% endcomment %}
+                                </a>
+                            </div>
                     </div>
                 </div>
                 <div class="col-sm p-3 min-vh-100">
@@ -108,9 +122,11 @@
         </div>
 
     </body>
-
     
-   
-
-
+{% block script %}
+{% load static %}
+<!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/chatWidget.js' %}"></script>
+{% endblock script %}
 </html>

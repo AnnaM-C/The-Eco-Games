@@ -2,22 +2,67 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Challenger(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+    postcode=models.CharField(max_length=4)
+
+    def __str__(self):
+        return self.user.username
+
 class Category(models.Model):
     name=models.CharField(max_length=128)
+    def __str__(self):
+        return self.name
 
+# class Activity(models.Model):
+#     title = models.TextField(max_length=128, unique=True)
+#     points=models.IntegerField()
+#     cat=models.ForeignKey(Category, on_delete=models.CASCADE)
+#     # counter=models.IntegerField(default=0)
+#     # activityTime=models.IntegerField(default=0)
+
+# class UserActivity(models.Model):
+#     activity=models.OneToOneField(Activity)
+#     activityTime=models.IntegerField(default=0)
+
+# class ActivityLog(models.Model):
+#     date=models.DateField()
+#     challenger=models.ForeignKey(User, on_delete=models.CASCADE)
+#     userActivities=models.ManyToManyField(UserActivity)
 
 class Activity(models.Model):
     title = models.TextField(max_length=128, unique=True)
     points=models.IntegerField()
     cat=models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    class ActivityType(models.TextChoices):
+        TIMEREQUIRED = 'TR', ('Time required')
+        TIMENOTREQUIRED = 'TNR', ('Time not required')
 
-class ActivityLog(models.Model):
-    date=models.DateField()
-    challenger=models.ForeignKey(User, on_delete=models.CASCADE)
-    activities=models.ManyToManyField(Activity)
+    type=models.CharField(max_length=4, default=ActivityType.TIMENOTREQUIRED)
 
+    def __str__(self):
+        return self.title
+
+class UserCart(models.Model):
+    updated_at=models.DateTimeField(auto_now=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+    challenger=models.ForeignKey(Challenger, on_delete=models.CASCADE, default=None)
     
+    def __str__(self):
+        return self.challenger.user.username
+
+class LineItem(models.Model):
+    timeRecorded=models.TimeField()
+    dateRecorded=models.DateField()
+    activityDuration=models.IntegerField(default=0)
+    checkedOut=models.BooleanField(default=False)
+    activity=models.ForeignKey(Activity, on_delete=models.CASCADE)
+    cart=models.ForeignKey(UserCart, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.activity.title
 
 class Tip(models.Model):
     description=models.TextField(max_length=500)
@@ -28,7 +73,7 @@ class MeterReading(models.Model):
     challeger=models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return self.value
 
 class Award(models.Model):
     title=models.TextField(max_length=128)
@@ -55,12 +100,6 @@ class UserTip(models.Model):
     challenger=models.ForeignKey(User, on_delete=models.CASCADE)
     tip=models.ManyToManyField(Tip)
 
-
-
-class Challenger(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    score = models.IntegerField(default=0)
-    postcode=models.CharField(max_length=2) # Change this to max_length = 4
 
 
 class Riddles(models.Model):
