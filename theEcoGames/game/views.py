@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.views.generic import ListView, CreateView, DetailView, FormView, View
-from .forms import UserActivityForm, locationUpdateForm
+#from .forms import UserActivityForm, locationUpdateForm
+from .forms import locationUpdateForm
 from django.urls import reverse_lazy
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -142,7 +143,8 @@ def leaderboards(request):
 
     user = request.user
     context['currentUser'] = user
-    context["topChallengers"] =  Challenger.objects.all().order_by('score')[:3]
+    # Important to reverse the list otherwise it counts lowest number first
+    context["topChallengers"] =  Challenger.objects.all().order_by('score').reverse()[:10]
 
 
     player, created = Challenger.objects.get_or_create(user=request.user)
