@@ -12,6 +12,8 @@ from django.shortcuts import (get_object_or_404, render, redirect)
 import os
 from decouple import config
 import random
+from django.http import JsonResponse
+
 
 # Profile view
 
@@ -200,6 +202,32 @@ def createActivitiesView(request):
     return render(request, "game/activities.html", context)
 
 
+
+def get_weather_data(request):
+    
+    api_key = "6626b1b047bfa44845376523cd1f8ea7"
+    
+    """
+    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    """
+    # Get the location parameter from the request, or use the default location Guildford
+    location = request.GET.get("location", "Guildford")
+
+    # Make an HTTP GET request to the OpenWeather API
+    weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}")
+
+    # Extract relevant weather data from the API response
+    weather_data = weather_response.json()
+    temperature = weather_data["main"]["temp"]
+    humidity = weather_data["main"]["humidity"]
+    wind_speed = weather_data["wind"]["speed"]
+
+    # Return the weather data as a JSON response
+    return JsonResponse({
+        "temperature": temperature,
+        "humidity": humidity,
+        "wind_speed": wind_speed
+    })
 
 
 
