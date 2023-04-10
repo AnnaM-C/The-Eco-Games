@@ -1,3 +1,8 @@
+from django import forms 
+from .models import *
+import random
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 # from django import forms 
 # from .models import *
 # # import random
@@ -22,6 +27,29 @@
 
 #     class Meta:
 
+        # model = ActivityLog
+        # fields = ['date', 'challenger', 'activities']
+        # widgets= {
+        #     'challenger': forms.HiddenInput(),
+        # }
+        # date=forms.DateField()
+
+
+class locationUpdateForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Challenger
+        fields = ['postcode']
+
+        widgets = {
+            'postcode': forms.TextInput(attrs={
+            'class': 'form-control', # Bootstrap and all
+            'placeholder': 'Enter your postcode:'
+            }),
+        }
+
+        
 #         model = ActivityLog
 #         fields = ['date', 'challenger', 'activities']
 #         widgets= {

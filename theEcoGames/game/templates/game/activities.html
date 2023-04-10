@@ -1,0 +1,13 @@
+
+<form method="POST" enctype="multipart/form-data">
+    <!-- Security token -->
+    {% csrf_token %}
+    <!-- Using the formset -->
+    {{ form.as_p }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+
+<br>
+<h1>Hi!</h1>
+{% endblock %}

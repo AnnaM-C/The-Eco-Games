@@ -1,69 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit&display=swap");
+#daNavbar {
+  background-color: #366632;
+  box-shadow: 2px 2px 25px black; }
+
 body {
   background-color: #ECD1BA;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23EAC8AB'/%3E%3Cstop offset='1' stop-color='%23ECD1BA'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%23FA3' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA3' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.37'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E");
   background-attachment: fixed;
   background-size: cover; }
 
-#homeGreeting {
-  margin-left: 2%;
-  font-size: 300%; }
-
 #featuredCard {
-  width: 90rem;
-  height: 15rem;
-  background-color: rgba(245, 245, 245, 0.878);
-  box-shadow: 5px 5px 25px; }
+  box-shadow: 5px 5px 25px #515151;
+  background-color: rgba(245, 245, 245, 0.878); }
 
-#featuredCardBody {
-  overflow: hidden;
+#featuredCard h1 {
   transition: font-size 0.5s; }
 
-#featuredCardBody a {
+#featuredCard:hover h1 {
+  font-size: 275%; }
+
+#featuredCard a {
   opacity: 0%; }
 
-#featuredCardBody h3 {
-  margin-top: 5%;
-  float: left;
-  font-size: 300%; }
+#activityCard {
+  box-shadow: 5px 5px 25px #515151;
+  background-color: rgba(4, 138, 248, 0.878); }
 
-#featuredCardBody:hover {
-  font-size: 105%; }
-
-#featuredCup {
-  float: right;
-  margin-right: 1%;
-  top: -10%; }
-
-#homeShortcuts {
-  width: 40vw;
-  height: 20vh;
-  box-shadow: 5px 5px 20px black;
-  overflow: hidden;
+#activityCard h1 {
   transition: font-size 0.5s; }
 
-#homeShortcuts:hover {
-  font-size: 105%; }
+#activityCard:hover h1 {
+  font-size: 275%; }
 
-#recordImage {
-  width: 30%;
-  float: right;
-  position: relative;
-  top: -20%; }
-
-#mapImage {
-  width: 50%;
-  float: right;
-  position: relative;
-  top: -30%; }
-
-#homeShortcuts h5 {
-  text-align: left;
-  margin: 5%;
-  font-size: 200%; }
-
-#homeShortcuts a {
+#activityCard a {
   opacity: 0%; }
+
+#mapCard {
+  box-shadow: 5px 5px 25px #515151;
+  background-color: rgba(30, 136, 14, 0.878); }
+
+#mapCard h1 {
+  transition: font-size 0.5s; }
+
+#mapCard a {
+  opacity: 0%; }
+
+#mapCard:hover h1 {
+  font-size: 275%; }
 
 #tipsTitle {
   margin-left: 2%;
@@ -128,7 +111,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #198754;
+  background-color: #24955c;
   box-shadow: 10px 10px 50px black; }
 
 .formfield {
