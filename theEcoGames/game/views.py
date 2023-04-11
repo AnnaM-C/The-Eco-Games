@@ -152,6 +152,27 @@ def leaderboards(request):
     context['line_items']=getCartItems(player)
     return render(request, 'game/leaderboards.html', context)
 
+
+def leaderboardUpdater(request):
+    context = {}
+    # Fetch the latest top challengers and all
+
+    
+    # "topChallengers" = Challenger.objects.all().order_by('score').reverse()[:10].values()
+
+    topchallengers = Challenger.objects.all().order_by('score').reverse()[:10].values()
+    
+    topnames = Challenger.objects.all().order_by('score').reverse()[:10].values_list('user__username', flat=True)
+   
+
+    return JsonResponse({"challenged": list(topchallengers), "challengedNames": list(topnames)}, status = 200)
+
+
+
+
+
+
+
 # TO DO: Maps view
 
 @login_required
