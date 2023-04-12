@@ -411,22 +411,53 @@ class RecordPoints(LoginRequiredMixin, View):
 
                 plus=0
                 # Adjust score based on index
+
+
+                # Here will implement dynamically changing score to assign the player with, depending on the state of the index
+
                 match index:
                     case "very low":
-                        plus=40
+                        baseScore = 40
+                        bonus = random.randint(20, 80) # Random bonus for logging event, ranges are higher for the index
+
+                        multiplier = 1.2 # Multiplier, adjust depending on other factors, hardcoded for now
+
+                        plus=(baseScore * multiplier)+bonus # Base score * mp + bonus
+                        print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "low":
-                        plus=30
+                        baseScore = 30
+                        bonus = random.randint(10, 50)
+                        multiplier = 1
+
+                        plus = (baseScore * multiplier) + bonus
+                        print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "moderate":
-                        plus=20
+                        baseScore = 20
+                        bonus = random.randint(5, 20)
+                        multiplier = 1
+
+                        plus = (baseScore * multiplier) + bonus
+                        print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "high":
-                        plus=10
+                        baseScore = 10
+                        multiplier = 0.8
+                        bonus = (1, 5)
+                        hi = 3
+                        plus = (baseScore * multiplier) + bonus
+                        print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "very-high":
-                        plus=0
+                        baseScore = 0
+                        multiplier = 1
+                        bonus = random.randint(1, 5)
+
+                        plus = (baseScore * multiplier) + bonus
+                        print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
 
                 # Get the players current score from DB
                 old_score=player.score
 
-                new_score=old_score+activity_point+plus
+                # Remember the activity points are added along with the plus value
+                new_score=old_score + activity_point + plus
 
                 player.score=new_score
                 player.save()
