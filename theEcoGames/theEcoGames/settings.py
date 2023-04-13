@@ -161,7 +161,7 @@ STATICFILE_DIRS = [
 
 # Login and Logout redirects
 LOGIN_REDIRECT_URL = "/game/"
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/game/"
 
 CHANNEL_LAYERS = {
     'default': {

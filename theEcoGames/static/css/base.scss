@@ -2,8 +2,22 @@
 
 
 $oldnavcolor: #549B78;
-$navcolor: #198754;
+
+$navcolor: rgb(54, 102, 50);
+
+//$footercolour: #198754;
+
+$footercolour: rgb(36, 149, 92);
 $navfont: 'Kanit', sans-serif;
+
+$colourshadow: 5px 5px 25px rgb(81, 81, 81);
+
+
+
+#daNavbar {
+    background-color: $navcolor;
+    box-shadow: 2px 2px 25px black;
+}
 
 
 body {
@@ -16,89 +30,72 @@ body {
 
 // Homepage Stylings
 
-#homeGreeting {
-    margin-left: 2%;
-    font-size: 300%;
-}
-
-
 #featuredCard {
-    width: 90rem;
-    height: 15rem;
+    //box-shadow: 5px 5px 25px black;
+    box-shadow: $colourshadow;
     background-color: rgba(245, 245, 245, 0.878);
-    box-shadow: 5px 5px 25px;
 }
 
-#featuredCardBody {
-    overflow: hidden;
-    transition: font-size 0.5s;
-    
-}
-
-#featuredCardBody a{
-    opacity: 0%;
-    
-}
-
-#featuredCardBody h3{
-    margin-top: 5%;
-    float: left;
-    font-size: 300%;
-    
-}
-
-#featuredCardBody:hover {
-    font-size: 105%;
-}
-
-#featuredCup {
-    float: right;
-    margin-right: 1%;
-    top: -10%;
-}
-
-
-#homeShortcuts {
-    width: 40vw;
-    height: 20vh;
-
-
-
-    box-shadow: 5px 5px 20px black;
-    overflow: hidden;
-
+#featuredCard h1{
     transition: font-size 0.5s;
 }
 
+#featuredCard:hover{
+    
+    h1 {
+        font-size: 275%;
+    }
 
-#homeShortcuts:hover {
-    font-size: 105%;
 }
 
-#recordImage {
-    width: 30%;
-    float: right;
-    position: relative;
-    top: -20%;
-}
-
-#mapImage {
-    width: 50%;
-    float: right;
-    position: relative;
-    top: -30%;
-}
-
-#homeShortcuts h5{
-    text-align: left;
-    margin: 5%;
-    font-size: 200%;
-}
-
-#homeShortcuts a {
+#featuredCard a {
     opacity: 0%;
 }
 
+#activityCard {
+    //box-shadow: 5px 5px 10px black;
+    box-shadow: $colourshadow;
+    background-color: rgba(4, 138, 248, 0.878);
+}
+
+
+#activityCard h1 {
+    transition: font-size 0.5s;
+}
+
+#activityCard:hover{
+    
+    h1 {
+        font-size: 275%;
+    }
+
+}
+
+#activityCard a {
+    opacity: 0%;
+}
+
+
+#mapCard {
+    box-shadow: 5px 5px 25px rgb(81, 81, 81);
+    background-color: rgba(30, 136, 14, 0.878);
+}
+
+#mapCard h1 {
+    transition: font-size 0.5s;
+}
+
+#mapCard a {
+    opacity: 0%;
+}
+
+#mapCard:hover{
+    
+    h1 {
+        font-size: 275%;
+    }
+
+}
 
 
 // Tips View Stylings
@@ -210,7 +207,7 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: $navcolor;
+    background-color: $footercolour;
     box-shadow: 10px 10px 50px black;
 }
 

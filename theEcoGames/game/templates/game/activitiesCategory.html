@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+<!-- Note these will be changed to dynamically generating cards once things in the backend are ready -->
+
+
+{% block content %}
+
+<br>
+
+<h1 class="display-5 fw-bold">Log Your Activities</h1>
+<h5>Reduce your carbon footprint even more!</h5>
+<br>
+
+<!-- Personalised Tips -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
+
+{% for category in category_list %}
+        <div class="col-sm">
+            <div class="card text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <p class="card-text">
+                            <a href="{% url 'gameapp:activitiesDetails' category.id %}">
+                            {{ category.name}}
+                            </a>
+                        </p>
+                    </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<h1 class="display-5 fw-bold">Keep tracking activities and we'll tune your feed!</h5>
+
+{% endblock content %}

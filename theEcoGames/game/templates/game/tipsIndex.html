@@ -9,65 +9,8 @@
 <br>
 
 <h1 class="display-5 fw-bold">Your Personalised Tips</h1>
-<h5>Reduce your carbon footprint even more!</h5>
-<br>
-
-<!-- Personalised Tips -->
-
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
-
-    <div class="col-sm">
-      <div class="card text-white bg-danger h-100"  id = "tipCard">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title"><strong>Thermostat</strong></h5>
-          <p class="card-text">You can save energy by using the heating less on warmer days.</p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-sm">
-      <div class="card text-white bg-success h-100">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title"><strong>Driving</strong></h5>
-          <p class="card-text">Try driving your car in less congested times, or take a new route.</p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-sm">
-      <div class="card text-white bg-primary h-100">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title"><strong>Showers</strong></h5>
-          <p class="card-text">Try shortening your showers down to 15 minutes, you currently average 36 minutes.</p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-sm">
-      <div class="card bg-warning h-100">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title"><strong>Devices</strong></h5>
-          <p class="card-text">Did you know? Your phone can charge when the grid index is low! Turn it on from your phone settings!</p>
-        </div>
-      </div>
-    </div>
-
-    
-  </div>
-
-  
-  <br> <br>
-  <!-- Trending Tips -->
-
-  <h1 class="display-5 fw-bold">Trending in your area</h1>
-  <h5>See what people around you are doing...</h5>
+  <h2>Keep up the good work!</h2>
+  <h5>What you're doing most of..</h5>
   <br>
 
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
@@ -76,8 +19,16 @@
       <div class="card text-white bg-danger h-100"  id = "tipCard">
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
-          <h5 class="card-title"><strong>Thermostat</strong></h5>
-          <p class="card-text">You can save energy by using the heating less on warmer days.</p>
+          <h5 class="card-title"><strong>Heating</strong></h5>
+          {% if heating_user_popular|length == 0 %}
+            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">Help your team and try some more energy saving heating activities! See below for recommendations</p>
+          {% else %}
+            {% for act in heating_user_popular %}
+              <p class="card-text">&check; {{act.title}}</p>
+            {% endfor %}   
+          {%endif%}
+     
         </div>
       </div>
     </div>
@@ -87,8 +38,15 @@
       <div class="card text-white bg-success h-100">
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
-          <h5 class="card-title"><strong>Driving</strong></h5>
-          <p class="card-text">Try driving your car in less congested times, or take a new route.</p>
+          <h5 class="card-title"><strong>Washing</strong></h5>
+          {% if washing_user_popular|length == 0 %}
+            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">Help your team and try some more energy saving washing activities! See below for recommendations</p>
+          {% else %}
+            {% for act in washing_user_popular %}
+              <p class="card-text">&check; {{act.title}}</p>
+            {% endfor %}    
+          {% endif %} 
         </div>
       </div>
     </div>
@@ -98,8 +56,15 @@
       <div class="card text-white bg-primary h-100">
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
-          <h5 class="card-title"><strong>Showers</strong></h5>
-          <p class="card-text">Try shortening your showers down to 15 minutes, you currently average 36 minutes.</p>
+          <h5 class="card-title"><strong>Bathroom</strong></h5>
+          {% if bathroom_user_popular|length == 0 %}
+            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">Help your team and try some more energy saving activities in the bathroom! See below for recommendations</p>
+          {% else %}
+            {% for act in bathroom_user_popular %}
+              <p class="card-text">&check; {{act.title}}</p>
+            {% endfor %}     
+          {% endif %}        
         </div>
       </div>
     </div>
@@ -110,15 +75,178 @@
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
           <h5 class="card-title"><strong>Devices</strong></h5>
-          <p class="card-text">Did you know? Your phone can charge when the grid index is low! Turn it on from your phone settings!</p>
+          {% if devices_user_popular|length == 0 %}
+            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">Help your team and try some more electronics energy saving activities! See below for recommendations</p>
+          {% else %}
+            {% for act in devices_user_popular %}
+              <p class="card-text">&check; {{act.title}}</p>
+            {% endfor %} 
+          {% endif %}  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br> <br>
+
+<h2>Reduce your carbon footprint even more! Personalised recommendations for you! </h2>
+<h5>Try some of these...</h5>
+<br>
+
+<!-- Personalised Tips -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
+    <div class="col-sm">
+      <div class="card text-white bg-danger h-100"  id = "tipCard">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Heating Tips</strong></h5>
+          {% if heating_recommendations|length == 0 %}
+              <p class="card-text">Keep doing what youre doing!</p>
+            {% else %}
+              {% for recommendation in heating_recommendations %}
+                <p class="card-text">&check; {{recommendation.title}}</p>
+              {% endfor %}
+          {%endif%}
         </div>
       </div>
     </div>
 
-    
+
+    <div class="col-sm">
+      <div class="card text-white bg-success h-100">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Washing Tips</strong></h5>
+          {% if washing_recommendations|length == 0 %}
+            <p class="card-text">Keep doing what youre doing!</p>
+          {% else %}
+            {% for recommendation in washing_recommendations %}
+              <p class="card-text">&check; {{recommendation.title}}</p>
+            {% endfor %}
+          {%endif%}
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-sm">
+      <div class="card text-white bg-primary h-100">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Bathroom Tips</strong></h5>
+          {% if bathroom_recommendations|length == 0 %}
+            <p class="card-text">Keep doing what youre doing!</p>
+          {% else %}
+            {% for recommendation in bathroom_recommendations %}
+              <p class="card-text">&check; {{recommendation.title}}</p>
+            {% endfor %}
+          {%endif%}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm">
+      <div class="card bg-warning h-100">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title"><strong>Devices Tips</strong></h5>
+          {% if devices_recommendations|length == 0 %}
+            <p class="card-text">Keep doing what youre doing!</p>
+          {% else %}
+            {% for recommendation in devices_recommendations %}
+            <p class="card-text">&check; {{recommendation.title}}</p>
+            {% endfor %}
+          {%endif%}
+        </div>
+      </div>
+    </div>
+
+</div>
+
+  
+  <br> <br>
+  <!-- Trending Tips -->
+
+  <h1 class="display-5 fw-bold">Popular</h1>
+  <h5>See what people around you are doing...</h5>
+  <br>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
+  <div class="col-sm">
+    <div class="card text-white bg-danger h-100"  id = "tipCard">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title"><strong>Heating Tips</strong></h5>
+        {% if heating_popular|length == 0 %}
+            <p class="card-text">These aren't so popular</p>
+          {% else %}
+            {% for initiative in heating_popular %}
+              <p class="card-text">&check; {{initiative.title}}</p>
+            {% endfor %}
+        {%endif%}
+      </div>
+    </div>
   </div>
 
-  <br><br>
+
+  <div class="col-sm">
+    <div class="card text-white bg-success h-100">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title"><strong>Washing Tips</strong></h5>
+        {% if washing_popular|length == 0 %}
+          <p class="card-text">These aren't so popular</p>
+        {% else %}
+          {% for initiative in washing_popular %}
+            <p class="card-text">&check; {{initiative.title}}</p>
+          {% endfor %}
+        {%endif%}
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-sm">
+    <div class="card text-white bg-primary h-100">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title"><strong>Bathroom Tips</strong></h5>
+        {% if bathroom_popular|length == 0 %}
+          <p class="card-text">These aren't so popular</p>
+        {% else %}
+          {% for initiative in bathroom_popular %}
+            <p class="card-text">&check; {{initiative.title}}</p>
+          {% endfor %}
+        {%endif%}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm">
+    <div class="card bg-warning h-100">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title"><strong>Devices Tips</strong></h5>
+        {% if devices_popular|length == 0 %}
+          <p class="card-text">These aren't so popular</p>
+        {% else %}
+          {% for initiative in devices_popular %}
+          <p class="card-text">&check; {{initiative.title}}</p>
+          {% endfor %}
+        {%endif%}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<br> <br>
 
   <h1 class="display-5 fw-bold">Keep tracking activities and we'll tune your feed!</h5>
 

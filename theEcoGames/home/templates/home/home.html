@@ -12,60 +12,113 @@
     Ready to compete?
 {% endif %}
 </h1>
+
 <br>
+
 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-4">
   <div class="col-sm">
-    <div class="card bg-light mb-3">
-        <div class="card-body ">
+    <div class="card mb-3" id = "featuredCard">
+
+        <div class = "card-body">
+        <!-- Basically these are empty cause its a quick way to center the text in the middle without breaking mobile -->
+        </div>
+        
+        <div class = "card-body">
+        <!-- Basically these are empty cause its a quick way to center the text in the middle without breaking mobile -->
+        </div>
+      
+        <div class="card-body">
         <h1 class="card-title">Compete for April's Eco Cup!</h1>
+        <a href="#" class="btn btn-primary stretched-link">Go somewhere</a>
         </div>
-        <div class="card-footer">            
-          Competitions <span style="float: right;"><i class="bi bi-trophy-fill"></i></span>
+
+        <div class = "card-body">
+        <!-- Basically these are empty cause its a quick way to center the text in the middle without breaking mobile -->
         </div>
+
+        <!-- <div class = "card-body">
+        
+        </div> -->
+
+      <div class="card-footer">
+        <span style="float: right;">Featured Competition  <i class="bi bi-trophy-fill"></i></span>
+      </div>
+        
     </div>
     </div>
 </div>
-
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
-  <div class="col-sm">
-    <div class="card h-100 text-white bg-primary mb-3">
-        <div class="card-body ">
-        <h1 class="card-title ">Record today's activities
-            </h1>
 
 
 <br><br>
 
 <!-- Quick Widgets -->
 
-<div class = "d-flex justify-content-center">
+<!-- <div class = "d-flex justify-content-center"> -->
 
-  <div class="row row-cols-2 row-cols-sm-1 g-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
 
-    <div class="col-sm-6 row-sm-6">
+    <!-- <div class="col-sm-6 row-sm-6">
 
       <div class="card bg-primary text-white"  id = "homeShortcuts" >
         <div class="card-body">
           <h5 class="card-title"><strong>Record Today's Activities</strong></h5>
           <img src = "{% static 'watch.png' %}" id = "recordImage">
-          <a href="{% url 'gameapp:activities' %}" class="btn btn-primary stretched-link">Go somewhere</a>
+          <a href="{% url 'gameapp:categories' %}" class="btn btn-primary stretched-link">Go somewhere</a>
 
         </div>
         <div class="card-footer">
             <span style="float: right;"><i class="bi bi-pencil-fill"></i></span>
         </div>
-    </div>
-    </div>
+    </div>  
+
+
+    </div> -->
+
+
     <div class="col-sm">
-      <div class="card h-100 text-white bg-success mb-3">
+      <div class="card h-100 text-white mb-3" id = "activityCard">
+
+          <div class="card-body">
+            
+          </div>
+
           <div class="card-body ">
-          <h1 class="card-title ">View the map
-              </h1>
+          <h1 class="card-title "><strong>Record Today's Activities</strong></h1>
+          <a href="{% url 'gameapp:categories' %}" class="btn btn-primary stretched-link">Go somewhere</a>
+          {% comment %} {% url 'gameapp:activities' %} {% endcomment %}
           </div>
-          <div class="card-footer">
+
+          <!-- <div class="card-body ">
+            
+          </div> -->
+          <!-- <div class="card-footer">
             <span style="float: right;"><i class="bi bi-geo-alt-fill"></i></span>
+          </div> -->
+      </div>
+      </div>
+
+
+    <div class="col-sm">
+      <div class="card h-100 text-white mb-3" id = "mapCard">
+
+          <div class="card-body ">
+            
           </div>
+
+          <div class="card-body ">
+          <h1 class="card-title "><strong>View the map</strong></h1>
+          <a href="{% url 'gameapp:maps' %}" class="btn btn-primary stretched-link">Go somewhere</a>
+          </div>
+
+          <!-- <div class="card-body ">
+            
+          </div> -->
+          <!-- <div class="card-footer">
+            <span style="float: right;"><i class="bi bi-geo-alt-fill"></i></span>
+          </div> -->
       </div>
       </div>
+
+   
 </div>
 {% endblock content %}
