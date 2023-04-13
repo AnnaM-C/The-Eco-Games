@@ -14,19 +14,18 @@ import os
 from decouple import config
 from django.http import JsonResponse
 import random
+
 from datetime import date
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.core.serializers import deserialize
-from django.http import JsonResponse
 from django.db.models import Count
 import numpy as np
 from django.utils import timezone
 from datetime import timedelta
-
-
 from django.http import HttpResponse
 from django.contrib import messages
+
 # Profile view
 
 @login_required
@@ -270,6 +269,34 @@ def maps(request):
 #     return render(request, "game/activities.html", context)
 
 
+def get_weather_data(request):
+
+    # Get API_KEY
+
+    WEATHER_KEY=config('WEATHER_KEY')
+    
+    """
+    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    """
+    # Get the location parameter from the request, or use the default location Guildford
+    location = request.GET.get("location", "Guildford")
+
+    # Make an HTTP GET request to the OpenWeather API
+    weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}")
+
+    # Extract relevant weather data from the API response
+    weather_data = weather_response.json()
+    temperature = weather_data["main"]["temp"]
+    humidity = weather_data["main"]["humidity"]
+    wind_speed = weather_data["wind"]["speed"]
+
+    # Return the weather data as a JSON response
+    return JsonResponse({
+        "temperature": temperature,
+        "humidity": humidity,
+        "wind_speed": wind_speed
+    })
+
 @login_required
 def categoriesActivitesView(request):
     context={}
@@ -413,6 +440,7 @@ class RecordPoints(LoginRequiredMixin, View):
             return JsonResponse({'message': 'Elements received and processed successfully.'})
         else:
             return JsonResponse({'message': 'No elements found.'})
+
 
 
 @login_required
