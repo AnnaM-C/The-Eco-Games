@@ -13,6 +13,9 @@ urlpatterns = [
     # Leaderboard View
     path('leaderboards', views.leaderboards, name='leaderboards'),
 
+    # Update Leaderboard AJAX View
+    path('leaderboardUpdate', views.leaderboardUpdater, name = 'leaderboardUpdate'),
+
     # Maps View
     path('maps', views.maps, name = 'maps'),
 
