@@ -422,7 +422,7 @@ class RecordPoints(LoginRequiredMixin, View):
 
                         multiplier = 1.2 # Multiplier, adjust depending on other factors, hardcoded for now
 
-                        plus=(baseScore * multiplier)+bonus # Base score * mp + bonus
+                        plus=baseScore * multiplier+bonus # Base score * mp + bonus
                         print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "low":
                         baseScore = 30
@@ -441,8 +441,8 @@ class RecordPoints(LoginRequiredMixin, View):
                     case "high":
                         baseScore = 10
                         multiplier = 0.8
-                        bonus = (1, 5)
-                        hi = 3
+                        bonus = random.randint(1, 5)
+                        #hi = 3
                         plus = (baseScore * multiplier) + bonus
                         print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "very-high":
