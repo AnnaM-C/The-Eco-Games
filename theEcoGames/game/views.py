@@ -156,9 +156,188 @@ def leaderboards(request):
 @login_required
 def maps(request):
     context={}
+    DATA_KEY = config('DATA_KEY') # Get API key
+    mapdata = { # Holds postal areas and values. Function is used to populatw
+            "name": ["score"]
+        }
+    mapdataRaw = ""
+    
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
+
+    mapID = "RJrKg"
+
+    '''
+    mapdata is shortened to md in function names
+    mv in function names refers to map visualtion
+    '''
+
+    '''
+    Create a new map
+    '''
+    def mvInit():
+        mapID = ""
+        # Create a new chart  
+        url = f"https://api.datawrapper.de/v3/charts"
+
+        data = {
+            "title": "The Eco Games", 
+            "type": "d3-maps-choropleth"
+                }
+        
+        headers = {
+            "Authorization": f"Bearer {DATA_KEY}",
+            "accept": "*/*",
+            "content-type": "application/json"
+        }
+
+        response = requests.post(url, json=data, headers=headers)
+
+        if response.status_code == 201: mapID = response.json()['publicId'] # Get actual areas using 'values'
+
+        # print(response.status_code, response.text)
+        print(mapID)
+        return mapID
+
+    def mvBaseKey():
+        # Add chart data  
+        url = f"https://api.datawrapper.de/v3/charts/{mapID}"
+
+        data = {"metadata":{"axes":{"keys":"name","values":"score"},"visualize":{"basemap":"united-kingdom-postal-areas","map-key-attr":"name"}}}
+        headers = {
+            "Authorization": f"Bearer {DATA_KEY}",
+            "accept": "*/*",
+            "content-type": "application/json"
+        }
+
+        response = requests.patch(url, json=data, headers=headers)
+
+        print(response.status_code, response.text)
+
+    def mvTooltip():
+        True
+
+    def mvMetadata():
+        True
+
+    def mvPublish():
+        url = f"https://api.datawrapper.de/v3/charts/{mapID}/publish"
+
+        headers = {
+            "Authorization": f"Bearer {DATA_KEY}"
+            # "accept": "*/*",
+        }
+
+        response = requests.post(url, headers=headers)
+
+        print(response.status_code, response.text)
+
+        return response.json()['data']['metadata']['publish']['embed-codes']['embed-method-iframe']
+
+        
+
+        # url = f"https://api.datawrapper.de/v3/charts/{mapID}"
+
+        # headers = {
+        #     "Authorization": f"Bearer {DATA_KEY}",
+        #     "accept": "*/*",
+        # }
+
+        # response = requests.get(url, headers=headers)
+
+        # print(response.status_code, response.text)
+    
+
+    def mdInit():
+        # URL to get constituencies
+        url = "https://api.datawrapper.de/v3/basemaps/uk-postal-areas/name"
+        headers = {
+            "accept": "*/*"
+            }
+        response = requests.get(url, headers = headers)
+
+        if response.status_code == requests.codes.ok: context['api_response'] = response.json()['values'] # Get actual areas using 'values'
+        else: print("Error:", response.status_code, response.text)
+        
+        for i in range(len(context['api_response'])): mapdata.update({f"{context['api_response'][i]}":[0]})
+
+    def mdUpdate():
+        allUsers = Challenger.objects.all() # get all users
+        for user in allUsers:
+            userScore = user.score # Get the user's score
+            rawUserCode = user.postcode # Get the user's postcode
+            rawUserCode = rawUserCode.strip() # Remove any trailing blanks etc
+            cleanUserCode = ''.join(i for i in rawUserCode if not i.isdigit()) # Remove numbers from postcode 
+            # DEBUG: Comment out below line
+            print(f'Postcode: {cleanUserCode if cleanUserCode != "" else "__"}, Score: {userScore} {">> Ignore" if cleanUserCode == "" else ">> OK"}')
+            # Ignore users with no assigned postcode, for those who do, add their score to the total for the region
+            if cleanUserCode != "" and cleanUserCode in mapdata : mapdata[f'{cleanUserCode}'][0] = mapdata[f'{cleanUserCode}'][0] + userScore
+        # DEBUG: Comment out below line
+        # print(mapdata)
+        # mapdata is ready to be processed the way datawrapper likes it
+    
+    def mdCSV():
+        mapdataRaw = ""
+        for key, value in mapdata.items():
+            mapdataRaw += f"{key},{value[0]}\n"
+        return mapdataRaw
+
+    def mdUpload():
+        # Add chart data  
+        url = f"https://api.datawrapper.de/v3/charts/{mapID}/data"
+
+        data = mapdataRaw
+        headers = {
+            "Authorization": f"Bearer {DATA_KEY}",
+            "accept": "*/*",
+            "content-type": "text/csv"
+        }
+
+        response = requests.put(url, data=data, headers=headers)
+
+        print(response.status_code, response.text)
+
+    def mdVerify():
+        # Check data added
+        url = f"https://api.datawrapper.de/v3/charts/{mapID}/data"
+        headers = {
+            "Authorization": f"Bearer {DATA_KEY}",
+            "accept": "application/json"
+            }
+        response = requests.get(url, headers=headers)
+
+        print(response.text)
+
+    # mapID = mvInit()
+
+    mdInit()
+    mdUpdate()
+    
+    mapdataRaw = mdCSV()
+    
+    mdUpload()
+    mdVerify()
+
+    # mvBaseKey()
+    
+    # mvTooltip()
+    # mvMetadata()
+    
+    embedString = mvPublish()
+
+    substring = '"'
+    sub_indices = []
+    for i in range(len(embedString) - len(substring)):
+        if embedString[i:i + len(substring)] == substring: sub_indices.append(i)
+
+    context['map_title'] = embedString[sub_indices[0]+1:sub_indices[1]]
+    context['map_id'] = embedString[sub_indices[4]+1:sub_indices[5]]
+    context['map_src'] = embedString[sub_indices[6]+1:sub_indices[7]]
+    context["challenger"] = request.user.challenger
+
+    print(context)
+    
     return render(request, 'game/map.html', context)
 
 # Activities view
