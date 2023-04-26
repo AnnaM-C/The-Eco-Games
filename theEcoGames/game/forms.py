@@ -56,3 +56,17 @@ class locationUpdateForm(forms.ModelForm):
 #             'challenger': forms.HiddenInput(),
 #         }
 #         date=forms.DateField()
+
+
+
+
+# New registration page with postcode field
+
+class registrationForm(UserCreationForm):
+    postcode = forms.CharField(required=True, max_length=4)
+
+    def save(self, commit=True):
+        instance = super().save(commit=True)
+        challenger = Challenger(user=instance, postcode = self.cleaned_data['postcode'])
+        challenger.save()
+        return instance
