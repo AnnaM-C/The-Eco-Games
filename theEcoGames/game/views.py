@@ -108,8 +108,6 @@ def profile(request):
 
 def locationUpdateView(request):
 
-    print("Started!")
-
     context = {}
     currentUser = request.user
 
@@ -122,7 +120,6 @@ def locationUpdateView(request):
     print(form.is_bound)
 
     if form.is_valid():
-        print("HAYA")
         form.save()
         messages.add_message(request, messages.SUCCESS, 'Location Updated')
         return redirect('gameapp:profile')
@@ -131,7 +128,8 @@ def locationUpdateView(request):
         messages.add_message(request, messages.ERROR, 'Something went wrong!')
         print("Something went wrong!")
         print(form.errors.as_data())
-        return render(request, 'game/profile.html', context)    
+        #return render(request, 'game/profile.html', context)
+        return redirect('gameapp:profile')  
 
 
 # TO DO: Leaderboard view
