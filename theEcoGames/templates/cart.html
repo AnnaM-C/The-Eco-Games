@@ -10,6 +10,7 @@
         <div class="shopping-cart">
           <div class="shopping-cart-header">
             <a class="submitButton" href="" onclick="recordPoints()">Submit</a>
+            <a id="deleteAll" class="submitButton" href="{% url 'gameapp:emptyCart' %}">Empty Cart</a>
               <div class="shopping-cart-total">
               <span class="lighter-text">Total:</span>
 

@@ -153,4 +153,18 @@ legend {
   font-weight: bold;
   margin-top: 20px; }
 
+.shopping-cart {
+  display: none; }
+
+.chat-box {
+  display: none; }
+
+@media (max-width: 786px) {
+  .fs-1 {
+    font-size: 1.375rem !important; }
+  #daNavbar > div {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr auto auto 1fr; } }
+
 /*# sourceMappingURL=base.css.map */
