@@ -13,7 +13,7 @@ admin.site.register(Faction)
 admin.site.register(Challenger)
 admin.site.register(Riddles)
 admin.site.register(Category)
-
+admin.site.register(UserCart)
 
 # admin.site.register(ManyToManyTable_ActivityForm)
 admin.site.register(UserTip)
