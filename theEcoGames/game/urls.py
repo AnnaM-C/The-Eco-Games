@@ -19,6 +19,9 @@ urlpatterns = [
     # Maps View
     path('maps', views.maps, name = 'maps'),
 
+    # Competitions view
+    path('competitions/<int:compYear>/<int:compMonth>', views.competitions, name='competitions'),
+
     # # Activities View
     # path('activities', views.createActivitiesView, name = 'activities'),
 

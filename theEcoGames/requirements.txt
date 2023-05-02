@@ -1,0 +1,13 @@
+channels==4.0.0
+daphne==4.0.0
+Django==4.1.1
+django-appconf==1.0.5
+django-compressor==4.1
+django-progressive-web-app==0.1.1
+django-pwa==1.0.10
+django-sass-processor==1.2.1
+libsass==0.21.0
+numpy==1.23.3
+Pillow==9.3.0
+python-decouple==3.8
+requests==2.28.1

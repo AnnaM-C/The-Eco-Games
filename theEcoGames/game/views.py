@@ -23,7 +23,7 @@ from django.db.models import Count
 import numpy as np
 from django.utils import timezone
 from datetime import timedelta
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 # Profile view
@@ -356,6 +356,14 @@ def maps(request):
     print(context)
     
     return render(request, 'game/map.html', context)
+
+@login_required
+def competitions(request, compYear, compMonth):
+    if compMonth < 1 or compMonth > 12: raise Http404
+    context = {}
+    context['compYear'] = compYear
+    context['compMonth'] = compMonth
+    return render(request, 'game/competitions.html', context)
 
 # Activities view
 # TO DO: Form validation - Add in messages.add_message(request, messages.SUCCESS, 'Event Created' / messages.add_message(request, messages.ERROR, 'Invalid Form Data; Event not created')
