@@ -12,6 +12,8 @@ $navfont: 'Kanit', sans-serif;
 
 $colourshadow: 5px 5px 25px rgb(81, 81, 81);
 
+$whiteglass: rgba(245, 245, 245, 0.878);
+
 
 
 #daNavbar {
@@ -38,6 +40,11 @@ body {
     //box-shadow: 5px 5px 25px black;
     box-shadow: $colourshadow;
     background-color: rgba(245, 245, 245, 0.878);
+
+    .card-body {
+        overflow: hidden;
+    }
+    
 }
 
 #featuredCard h1{
@@ -52,9 +59,12 @@ body {
 
 }
 
+
+
 #featuredCard a {
     opacity: 0%;
 }
+
 
 #activityCard {
     //box-shadow: 5px 5px 10px black;
@@ -158,6 +168,20 @@ body {
 
 #profileCard {
     padding: 30px;
+    box-shadow: 2px 2px 40px black;
+    background-color: $whiteglass;
+}
+
+#pointsCard {
+    box-shadow: 2px 2px 20px black;
+}
+
+#activityCard {
+    box-shadow: 2px 2px 20px black;
+}
+
+#riddle {
+    box-shadow: 2px 2px 20px black;
 }
 
 // Profile Widgets
@@ -244,28 +268,76 @@ body {
 }
 
 
+// Registration form
+img {
+    max-height: 300px;
+}
+
+// Privacy Policy on Registration form
+
+#policyBlock {
+    background-color: $whiteglass;
+    text-align: center;
+    bottom: 0;
+}
+
+#policyTitle {
+    text-align: center;
+}
+
+#policyStatement {
+    text-align: center;
+}
+
+// Activity Category Stylings
+#categoryList {
+
+    .card:hover {
+        box-shadow: 2px 2px 20px black;
+        transition: box-shadow 0.25s;
+    }
+
+    .card {
+        background-color: $whiteglass;
+        // box-shadow: 2px 2px 10px black;
+        border-color: $navcolor;
+    }
+
+    .card-title {
+        text-align: center;        
+    }
+
+    .card-footer {
+        text-align: center;
+        background-color: $navcolor;
+    }
+
+    img {
+        margin-top: 2%;
+        max-height: 200px;
+        max-width: 189px;
+    }
+}
+
 
 // Activities stylings
 
-#activityTitle {
-	text-align: center;
+#activityList {
+
+    .card-title {
+        display: inline-block;
+    }
+
+    // #buttons {
+    //     max-width: fit-content;
+    // }
 }
 
-fieldset {
-	margin-bottom: 20px;
+#activityDetails {
+    background-color: $whiteglass;
 }
 
-#fieldset label {
-    display: table-cell;
-}
 
-legend {
-	font-weight: bold;
-}
-
-#activityButton input[type="button"] {
-	margin-top: 10px;
-}
 
 #total-points {
 	font-size: 1.5em;

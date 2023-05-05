@@ -1,23 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
 {% comment %} {% include 'game/cart.html' %} {% endcomment %}
 {% include 'game/activityTRModal.html' %}
 {% include 'game/activityNTRModal.html' %}
 
 
-    <h1>{{category.name}}</h1>
+<br>
+<h1 class="display-5 fw-bold">{{category.name}}</h1>
+<br>
 
-    {% for activity in activity_list %}
+{% comment %} <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setFields({{activity.id}}, '{{activity.type}}')"><strong>Log Time</strong></button> {% endcomment %}
+
+    {% comment %} {% for activity in activity_list %}
                 <h5 class="card-title">
                     {{ activity.title}}</h5>
             {% if activity.type == 'TR' %}
                 <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#trModal" onclick="setFields({{activity.id}})"><strong>Log Time and Duration</strong></button>
-                {% comment %} <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setFields({{activity.id}}, '{{activity.type}}')"><strong>Log Time</strong></button> {% endcomment %}
+
             {% else %}
                 <button type="button" class="btn btn-warning shadow-lg log-time-button" data-bs-toggle="modal" data-bs-target="#tnrModal" onclick="setFields({{activity.id}})"><strong>Log Time</strong></button>
             {% endif %}
+    {% endfor %} {% endcomment %}
+
+
+
+<div class="col">
+    {% for activity in activity_list %}
+    <div class="card" id = "activityDetails">
+      <div class="card-body d-flex justify-content-between">
+        <h5 class="card-title"><strong>{{activity.title}}</strong></h5>
+  
+        <div id="buttons" class="d-flex">
+          {% if activity.type == 'TR' %}
+          <button type="button" class="btn btn-success log-time-button me-2" data-bs-toggle="modal" data-bs-target="#trModal" onclick="setFields({{activity.id}})"><strong>Log Time and Duration</strong></button>
+          {% else %}
+          <button type="button" class="btn btn-success log-time-button me-2" data-bs-toggle="modal" data-bs-target="#tnrModal" onclick="setFields({{activity.id}})"><strong>Log Time</strong></button>
+          {% endif %}
+        </div>
+  
+      </div>
+    </div>
     {% endfor %}
+  </div>
+
+
+
+  
 
 {% endblock content %}
 

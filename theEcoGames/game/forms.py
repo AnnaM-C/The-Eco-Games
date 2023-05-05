@@ -94,7 +94,10 @@ class registrationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
+    # Postcode goes through regex first
     postcode = forms.CharField(required=True, max_length=4, validators=[postcodeRegex])
+
+# Need to create custom save functionality for the fields as we are extending django user creation form
 
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  

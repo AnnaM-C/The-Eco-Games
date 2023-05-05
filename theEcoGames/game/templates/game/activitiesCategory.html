@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 <!-- Note these will be changed to dynamically generating cards once things in the backend are ready -->
 
@@ -7,13 +7,12 @@
 {% block content %}
 
 <br>
-
-<h1 class="display-5 fw-bold">Log Your Activities</h1>
-<h5>Reduce your carbon footprint even more!</h5>
+<h1 class="display-5 fw-bold">Record Your Activities</h1>
+<h5>What have you done today?...</h5>
 <br>
 
 <!-- Personalised Tips -->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
+{% comment %} <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" id = "tipGrid">
 
 {% for category in category_list %}
         <div class="col-sm">
@@ -29,8 +28,31 @@
             </div>
         </div>
     {% endfor %}
-</div>
+</div> {% endcomment %}
 
-<h1 class="display-5 fw-bold">Keep tracking activities and we'll tune your feed!</h5>
+
+<!-- Activity Categories --> 
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id = "categoryList">
+
+    {% for category in category_list %}
+
+    <div class="col">
+      <div class="card">
+        <img src="{% static 'house2.png' %}" class="card-img-top img-fluid rounded mx-auto d-block" alt="Activity Icon">
+        <a href="{% url 'gameapp:activitiesDetails' category.id %}" class="btn stretched-link" id = "link"></a>
+        <div class="card-body">
+          <h5 class="card-title"><strong>{{category.name}}</strong></h5>
+          {% comment %} <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> {% endcomment %}
+        </div>
+        <div class="card-footer">
+            <small class="text-white">6 activities</small>
+          </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+</div>
 
 {% endblock content %}

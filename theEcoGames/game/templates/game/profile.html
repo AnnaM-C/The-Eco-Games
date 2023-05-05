@@ -13,18 +13,18 @@
 
 
 
-
-<h1><strong>Your Profile</strong></h1>
+<br>
+<h1 class="display-5 fw-bold">Your Profile</h1>
+<h5>All about you!</h5>
 
 <!-- Profile Panel -->
-
 
 
 <div id = "profilePane">
 
     <div class = "d-flex justify-content-center" >
 
-        <div class="card mb-3 border border-dark shadow-lg" style="max-width: 540px;" id = "profileCard">
+        <div class="card mb-3 border border-dark" style="max-width: 540px;" id = "profileCard">
             <div class="row g-0">
               <div class="col-md-4">
                 <img src="{% static 'defaultprofile.png' %}" class="img-fluid rounded-start rounded-circle" alt="You!">
@@ -37,7 +37,7 @@
                   <br>
 
                   <div class = "d-flex justify-content-center">  
-                    <button type = "button" class = "btn btn-warning shadow-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>Change your location</strong></button>
+                    <button type = "button" class = "btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>Change your location</strong></button>
                   </div>
 
                 </div>
@@ -93,15 +93,15 @@
 
     <div class = "col">
 
-        <div class="card text-white bg-success h-100 shadow-lg">
+        <div class="card text-white bg-success h-100" id = "pointsCard">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="...">
+                {% comment %} <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="..."> {% endcomment %}
               </div>
               <div class="col-md-8">
                 <div class="card-body">
                   <h2 class="card-title">Your Points</h2>
-                  <p class="card-text">You Earned {{challenger.score}} Points!</p>
+                  <p class="card-text">You Earned <strong>{{challenger.score}}</strong> Points!</p>
                 </div>
               </div>
             </div>
@@ -116,15 +116,15 @@
 
     <div class = "col">
 
-        <div class="card text-white bg-primary h-100 shadow-lg">
+        <div class="card text-white bg-primary h-100" id = "activityCard">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="...">
+                {% comment %} <img src="{% static 'points.jpeg' %}" class="img-fluid rounded-start" alt="..."> {% endcomment %}
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h2 class="card-title">Recent Activity</h2>
-                  <p class="card-text">You tracked 4 activities today!</p>
+                  <h2 class="card-title">Lifetime Activity</h2>
+                  <p class="card-text">You tracked <strong>{{recordedActivities}} activities</strong> in total!</p>
                 </div>
               </div>
             </div>
@@ -156,17 +156,13 @@
 
 
 
-
-{% comment %}
-{% endcomment %}
-
 <!-- Riddle -->
 
 <div id = "profilePane">
 
-      <div class = "d-flex justify-content-center" >
+      <div class = "d-flex justify-content-center">
   
-          <div class="card mb-3 border border-dark shadow-lg" style="max-width: 540px;" id = "profileCard">
+          <div class="card mb-3 border border-dark" style="max-width: 540px;" id = "riddle">
 
             <div class="card-header"><p class="card-text">Riddle of the month</p></div>       
 

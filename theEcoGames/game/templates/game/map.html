@@ -3,13 +3,13 @@
 {% block content %}
   <br>  
   <h1 class="display-5 fw-bold">Map</h1>
-  <br>
 <h5>View the competition!</h5>
+<br>
 
 <div class="card">
     <div class="card-body">
-        <h2 class="card-title">{{challenger.postcode}}</h2>
-        <p class="card-text">A message containing the user's points as a percentage of points for their region</p>
+        <h2 class="card-title">You are representing <strong>{{challenger.postcode}}</strong></h2>
+        <p class="card-text">Your points are combined with others in the same area as you</p>
        <iframe title="{{ map_title }}" aria-label="Map" id="{{ map_id }}" src="{{ map_src }}" scrolling="no" frameborder="0" style="border: none;" width="600" height="757" data-external="1"></iframe>
     </div>
 </div>
