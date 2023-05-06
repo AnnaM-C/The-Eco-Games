@@ -19,6 +19,9 @@ urlpatterns = [
     # Maps View
     path('maps', views.maps, name = 'maps'),
 
+    # Competitions view
+    path('competitions/<int:compYear>/<int:compMonth>', views.competitions, name='competitions'),
+
     # # Activities View
     # path('activities', views.createActivitiesView, name = 'activities'),
 
@@ -36,6 +39,8 @@ urlpatterns = [
     path('tips', views.tipsIndex, name = 'tips'),
 
     path('recordPoints', views.RecordPoints.as_view(), name='record_points'),
+
+    path('emptyCart', views.emptyCart, name='emptyCart'),
 
     # path('setDurationField', views.SetDurationField.as_view(), name='setDurationField')
 

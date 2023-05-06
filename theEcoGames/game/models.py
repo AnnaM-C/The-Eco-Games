@@ -6,7 +6,7 @@ class Challenger(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
     postcode=models.CharField(max_length=4)
-
+    
     def __str__(self):
         return self.user.username
 
@@ -99,7 +99,6 @@ class Location(models.Model):
 class UserTip(models.Model):
     challenger=models.ForeignKey(User, on_delete=models.CASCADE)
     tip=models.ManyToManyField(Tip)
-
 
 
 class Riddles(models.Model):

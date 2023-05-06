@@ -4,7 +4,7 @@ from .models import *
 from django.views.generic import ListView, CreateView, DetailView, FormView, View
 #from .forms import UserActivityForm, locationUpdateForm
 from .forms import locationUpdateForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
@@ -23,7 +23,7 @@ from django.db.models import Count
 import numpy as np
 from django.utils import timezone
 from datetime import timedelta
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib import messages
 
 # Profile view
@@ -96,8 +96,6 @@ def profile(request):
     # Get the challenger information
 
     context["challenger"] = currentUser.challenger
-
-
 
     # Getting the Location Update from
     locationForm = locationUpdateForm(request.POST or None)
@@ -366,6 +364,14 @@ def maps(request):
     print(context)
     
     return render(request, 'game/map.html', context)
+
+@login_required
+def competitions(request, compYear, compMonth):
+    if compMonth < 1 or compMonth > 12: raise Http404
+    context = {}
+    context['compYear'] = compYear
+    context['compMonth'] = compMonth
+    return render(request, 'game/competitions.html', context)
 
 # Activities view
 # TO DO: Form validation - Add in messages.add_message(request, messages.SUCCESS, 'Event Created' / messages.add_message(request, messages.ERROR, 'Invalid Form Data; Event not created')
@@ -685,6 +691,7 @@ def tipsIndex(request):
     context = {}
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
+    context['line_items']=getCartItems(player)
 
     # context['line_items']=getCartItems(player)
 
@@ -756,3 +763,12 @@ def getCartItems(player):
     context={}
     context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
     return context['line_items']
+
+
+def emptyCart(request):
+    player = Challenger.objects.get(user=request.user)
+    line_items=getCartItems(player)
+    line_items.delete()
+    
+    return redirect(reverse('gameapp:categories'))
+        
