@@ -12,6 +12,8 @@ body {
 #featuredCard {
   box-shadow: 5px 5px 25px #515151;
   background-color: rgba(245, 245, 245, 0.878); }
+  #featuredCard .card-body {
+    overflow: hidden; }
 
 #featuredCard h1 {
   transition: font-size 0.5s; }
@@ -73,7 +75,18 @@ body {
   text-align: center; }
 
 #profileCard {
-  padding: 30px; }
+  padding: 30px;
+  box-shadow: 2px 2px 40px black;
+  background-color: rgba(245, 245, 245, 0.878); }
+
+#pointsCard {
+  box-shadow: 2px 2px 20px black; }
+
+#activityCard {
+  box-shadow: 2px 2px 20px black; }
+
+#riddle {
+  box-shadow: 2px 2px 20px black; }
 
 #profileWidgets {
   margin: auto; }
@@ -133,20 +146,45 @@ body {
   background-color: #781212;
   text-align: center; }
 
-#activityTitle {
+img {
+  max-height: 300px; }
+
+#policyBlock {
+  background-color: rgba(245, 245, 245, 0.878);
+  text-align: center;
+  bottom: 0; }
+
+#policyTitle {
   text-align: center; }
 
-fieldset {
-  margin-bottom: 20px; }
+#policyStatement {
+  text-align: center; }
 
-#fieldset label {
-  display: table-cell; }
+#categoryList .card:hover {
+  box-shadow: 2px 2px 20px black;
+  transition: box-shadow 0.25s; }
 
-legend {
-  font-weight: bold; }
+#categoryList .card {
+  background-color: rgba(245, 245, 245, 0.878);
+  border-color: #366632; }
 
-#activityButton input[type="button"] {
-  margin-top: 10px; }
+#categoryList .card-title {
+  text-align: center; }
+
+#categoryList .card-footer {
+  text-align: center;
+  background-color: #366632; }
+
+#categoryList img {
+  margin-top: 2%;
+  max-height: 200px;
+  max-width: 189px; }
+
+#activityList .card-title {
+  display: inline-block; }
+
+#activityDetails {
+  background-color: rgba(245, 245, 245, 0.878); }
 
 #total-points {
   font-size: 1.5em;

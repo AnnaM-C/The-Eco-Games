@@ -27,13 +27,14 @@
         <!-- Basically these are empty cause its a quick way to center the text in the middle without breaking mobile -->
         </div>
       
-        <div class="card-body">
+        <div class="card-body d-flex align-items-center">
         <h1 class="card-title">Compete for April's Eco Cup!</h1>
         <a href="#" class="btn btn-primary stretched-link">Go somewhere</a>
         </div>
 
         <div class = "card-body">
         <!-- Basically these are empty cause its a quick way to center the text in the middle without breaking mobile -->
+        
         </div>
 
         <!-- <div class = "card-body">
@@ -47,7 +48,6 @@
     </div>
     </div>
 </div>
-
 
 <br><br>
 
@@ -107,6 +107,7 @@
 
           <div class="card-body ">
           <h1 class="card-title "><strong>View the map</strong></h1>
+          {% comment %} <img src = "{% static 'watch.png' %}" id = "recordImage" class = "img-fluid"> {% endcomment %}
           <a href="{% url 'gameapp:maps' %}" class="btn btn-primary stretched-link">Go somewhere</a>
           </div>
 

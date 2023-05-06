@@ -101,6 +101,14 @@ def profile(request):
     locationForm = locationUpdateForm(request.POST or None)
     context["locationForm"] = locationForm
 
+    # Get the total activities recorded by the user
+    currentUser = request.user
+    currentChallenger = currentUser.challenger
+
+    challengerActivity = LineItem.objects.filter(cart__challenger=currentChallenger).count()
+    
+    context["recordedActivities"] = challengerActivity
+
     return render(request, 'game/profile.html', context)
 
 
@@ -154,7 +162,7 @@ def leaderboardUpdater(request):
 
     
     # "topChallengers" = Challenger.objects.all().order_by('score').reverse()[:10].values()
-
+    
     topchallengers = Challenger.objects.all().order_by('score').reverse()[:10].values()
     
     topnames = Challenger.objects.all().order_by('score').reverse()[:10].values_list('user__username', flat=True)

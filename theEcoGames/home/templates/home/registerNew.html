@@ -1,10 +1,27 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %} 
-<h2>Create an account</h2> 
+<br>
+<h1 class="display-5 fw-bold">Create an Account</h1>
+<br>
+
+
 <form method="post">
+    <table>
     {% csrf_token %}
-    {{ form.as_p }}
-<button type="submit">Sign Up</button>
+    {{ form.as_table }}
+</table>
+<br>
+<button type="submit" class = "btn btn-primary">Sign Up</button>
+    
 </form>
+
+{% comment %} <img src="{% static 'The Eco Logo.svg' %}" class="img-fluid rounded mx-auto d-block" alt="Activity Icon"> {% endcomment %}
+
+<br>
+<div id = "policyBlock">
+<p><strong>Privacy Policy Statement:</strong></p>
+<p id = "policyStatement">Lorem Ipsem Sussem idk</p>
+</div>
 {% endblock content %}
