@@ -15,21 +15,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-# class Activity(models.Model):
-#     title = models.TextField(max_length=128, unique=True)
-#     points=models.IntegerField()
-#     cat=models.ForeignKey(Category, on_delete=models.CASCADE)
-#     # counter=models.IntegerField(default=0)
-#     # activityTime=models.IntegerField(default=0)
-
-# class UserActivity(models.Model):
-#     activity=models.OneToOneField(Activity)
-#     activityTime=models.IntegerField(default=0)
-
-# class ActivityLog(models.Model):
-#     date=models.DateField()
-#     challenger=models.ForeignKey(User, on_delete=models.CASCADE)
-#     userActivities=models.ManyToManyField(UserActivity)
 
 class Activity(models.Model):
     title = models.TextField(max_length=128, unique=True)

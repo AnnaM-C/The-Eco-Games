@@ -18,8 +18,6 @@ def home(request):
 
     context["currentUser"] = currentUser
 
-
-
     return render(request, 'home/home.html', context)
 
 
@@ -34,7 +32,6 @@ def registerNewUser(request):
     else:
         form = registrationForm()
     return render(request, 'home/registerNew.html', {'form': form})
-
 
 
 
