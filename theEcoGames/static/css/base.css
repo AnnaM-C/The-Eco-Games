@@ -205,4 +205,11 @@ img {
     grid-template-rows: 1fr;
     grid-template-columns: 1fr auto auto 1fr; } }
 
+#tips-header {
+  background-color: beige; }
+
+#weather-image {
+  max-height: 50px;
+  padding-bottom: 10px; }
+
 /*# sourceMappingURL=base.css.map */
