@@ -767,7 +767,6 @@ def tipsIndex(request):
 
     return render(request, "game/tipsIndex.html", context)
 
-login_required
 def getActivityByCategory(list, category):
     newlist=[]
     for act in list:

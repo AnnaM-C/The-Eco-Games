@@ -94,17 +94,17 @@
 
 <div id="tips-header" class="card text-center">
   <div class="card-body">
-    <h5 class="card-title">Reduce your carbon footprint even more with personalised recommendations for you! </h5>
+    <h5 class="card-title">Recommendations for you! </h5>
     {% if temperature > 20 %}
     <p class="card-title">It's hot today! Hang your washing out to dry instead of using the dryer to save energy!</p>
     <img id="weather-image" src='/static/sun.png'>
     <h5 class="card-title">Hang your washing out to dry instead of using the dryer to save energy!</p>
     {% else %}
-    <p class="card-title">It's cloudy today!</p>
+    <p class="card-title">It's cloudy today</p>
     <img id="weather-image" src='/static/cloud.png'>
     {%endif%}
     <p class="card-title">Temperature: {{temperature}} Celcius, Humidity: {{humidity}} Celcius, Wind speed: {{wind_speed}} mph </p>
-    <p class="card-text">Try some of these...</p>
+    <p class="card-text">Reduce your carbon footprint even more with some of these...</p>
   </div>
 </div>
 
@@ -268,6 +268,9 @@
 
 <br> <br>
 
-  <h1 class="display-5 fw-bold">Keep tracking activities and we'll tune your feed!</h5>
+<div id="tips-header" class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title"><strong>Keep tracking activities and we'll tune your feed!</strong></h5>  </div>
+</div>
 
 {% endblock content %}

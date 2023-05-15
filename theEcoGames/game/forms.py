@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from game.validators import validate_email
 # from django import forms 
 # from .models import *
 # # import random
@@ -90,15 +91,13 @@ class locationUpdateForm(forms.ModelForm):
 
 class registrationForm(UserCreationForm):
     username = forms.CharField(label = 'Username', min_length=5, max_length=20)
-    email = forms.EmailField(label='Email')
+    email = forms.EmailField(label='Email', validators = [validate_email])
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
 
     # Postcode goes through regex first
     postcode = forms.CharField(required=True, max_length=4, validators=[postcodeRegex])
-
-# Need to create custom save functionality for the fields as we are extending django user creation form
-
+    
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
         new = User.objects.filter(username = username)  
@@ -106,12 +105,11 @@ class registrationForm(UserCreationForm):
             raise ValidationError("User Already Exist")  
         return username
 
-    def email_clean(self):  
-        email = self.cleaned_data['email'].lower()  
-        new = User.objects.filter(email=email)  
-        if new.count():  
-            raise ValidationError("Email Already Exist")  
-        return email
+    def email_clean(self):
+       email = self.cleaned_data.get('email')
+       if User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
+       return self.cleaned_data
 
     def clean_password2(self):  
         password1 = self.cleaned_data['password1']  
