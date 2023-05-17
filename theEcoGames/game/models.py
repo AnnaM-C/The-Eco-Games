@@ -87,6 +87,6 @@ class UserTip(models.Model):
 
 
 class Riddles(models.Model):
+    r_id=models.IntegerField(default=1)
     text=models.TextField()
-    used=models.BooleanField(default=False)
 

@@ -1,4 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit&display=swap");
+@media (min-width: 768px) {
+  #ecologo {
+    max-width: 60%;
+    height: auto; } }
+
+#quickCard {
+  background-color: rgba(245, 245, 245, 0.878);
+  box-shadow: 5px 5px 25px #515151;
+  animation: rollout 1s forwards;
+  animation-delay: 10s; }
+
+@keyframes rollout {
+  0% {
+    transform: translateY(0%); }
+  100% {
+    transform: translateY(-200%);
+    display: none; } }
+
 #daNavbar {
   background-color: #366632;
   box-shadow: 2px 2px 25px black; }
@@ -49,6 +67,16 @@ body {
 
 #mapCard:hover h1 {
   font-size: 275%; }
+
+#leaderboard {
+  box-shadow: 2px 2px 30px black;
+  animation: reveal 1s forwards; }
+
+@keyframes reveal {
+  0% {
+    transform: translateY(100%); }
+  100% {
+    transform: translateY(0); } }
 
 #tipsTitle {
   margin-left: 2%;
