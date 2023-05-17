@@ -35,66 +35,54 @@ def profile(request):
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
-    # Get riddle object 1.
+    # # Get riddle object for when a user creates an account
+    # riddle=Riddles.objects.get(r_id=1)
 
-    riddle=Riddles.objects.get(r_id=1)
+    # # Define API URL.
+    # QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
 
-    # Define API URL.
+    # # Get API_KEY
+    # API_KEY=config('API_KEY')
 
-    QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
+    # # Get todays date
+    # today = datetime.date.today()
 
-    # Get API_KEY
+    # # Condition for API call
+    # if calendar.monthrange(today.year, today.month)[1] > today.day:
+    #     response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
 
-    API_KEY=config('API_KEY')
+    #     # If API is successful, store riddle in context dictionary
+    #     if response.status_code == requests.codes.ok:
+    #         data=response.json()
+    #         question=data[0]['question']
+    #         context['api_response']=question
 
-    # Get todays date
+    #         # update riddle in database for future use
+    #         riddle.text=question
 
-    today = datetime.date.today()
-
-    # Condition for API call
-
-    if calendar.monthrange(today.year, today.month)[1] == today.day:
-        response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
-
-        # If API is successful, store riddle in context dictionary
-
-        if response.status_code == requests.codes.ok:
-            data=response.json()
-            question=data[0]['question']
-            context['api_response']=question
-
-            # update riddle in database for future use
-
-            riddle.text=question
-
-            # Save database object
-
-            riddle.save()
+    #         # Save database object
+    #         riddle.save()
                 
-        else:
-            print("Error:", response.status_code, response.text)
-    else:
+    #     else:
+    #         print("Error:", response.status_code, response.text)
+    # else:
 
-        # Did not call API for new riddle. Use existing riddle
+    #     # Did not call API for new riddle. Use existing riddle
+    #     r=getattr(riddle,'text')
 
-        r=getattr(riddle,'text')
+    #     # Store in context dictionary
+    #     context['api_response']=r
 
-        # Store in context dictionary
-
-        context['api_response']=r
-
+    #     # Save database object
+    #     riddle.save()
+        
     # Get current user
-
     currentUser = request.user
 
     # Store in context dictionary
-
     context["currentUser"] = currentUser
 
-    # Render profile page
-
     # Get the challenger information
-
     context["challenger"] = currentUser.challenger
 
     # Getting the Location Update from
@@ -149,7 +137,6 @@ def leaderboards(request):
     # Important to reverse the list otherwise it counts lowest number first
     context["topChallengers"] =  Challenger.objects.all().order_by('score').reverse()[:10]
 
-
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
@@ -159,7 +146,6 @@ def leaderboards(request):
 def leaderboardUpdater(request):
     context = {}
     # Fetch the latest top challengers and all
-
     
     # "topChallengers" = Challenger.objects.all().order_by('score').reverse()[:10].values()
     
@@ -571,7 +557,7 @@ class AddLineItem(LoginRequiredMixin, View):
         player = Challenger.objects.get(user=request.user)
         cart = UserCart.objects.get(challenger=player)
 
-        # if statement to check if line item not submitted already exists
+        # If statement to check if line item is checked out
         if LineItem.objects.filter(dateRecorded=date.today(), checkedOut=False, activity=activity, cart=cart).exists():
             return JsonResponse({'cart_success': False}, status=200)
         elif LineItem.objects.filter(dateRecorded=date.today(), checkedOut=True, activity=activity, cart=cart).exists():
@@ -676,12 +662,8 @@ def tipsIndex(request):
     player.save()
     context['line_items']=getCartItems(player)
 
-    # context['line_items']=getCartItems(player)
-
-    # player_line_items=getCartItems(player)
-
     def num_lineitems(self):
-        num_lineitems = LineItem.objects.all().count()
+        num_lineitems = LineItem.objects.all().count
         return num_lineitems
 
     user_top_activities = Activity.objects.filter(lineitem__cart__challenger=player) \
@@ -692,14 +674,13 @@ def tipsIndex(request):
     total_top_activities = Activity.objects.all() \
                 .annotate(num_lineitems=Count('lineitem')) \
                 .order_by('-num_lineitems')[:3]
-    
+    print(total_top_activities)
 
     # Most popular user specific activities
     context['heating_user_popular'] = getActivityByCategory(user_top_activities, "Heating")
     context['washing_user_popular']= getActivityByCategory(user_top_activities, "Washing")
     context['bathroom_user_popular']= getActivityByCategory(user_top_activities, "Bathroom")
     context['devices_user_popular']= getActivityByCategory(user_top_activities, "Electronics")
-
 
     user_cart = UserCart.objects.get(challenger=player)
     one_week_ago = timezone.now() - timedelta(days=7)
@@ -724,27 +705,27 @@ def tipsIndex(request):
     context['bathroom_popular']= getActivityByCategory(total_top_activities, "Bathroom")
     context['devices_popular']= getActivityByCategory(total_top_activities, "Electronics")
 
-    # Get API_KEY
-    WEATHER_KEY=config('WEATHER_KEY')
+    # # Get API_KEY
+    # WEATHER_KEY=config('WEATHER_KEY')
     
-    """
-    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
-    """
-    # Get the location parameter from the request, or use the default location Guildford
-    location = request.GET.get("location", "Guildford")
+    # """
+    # Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    # """
+    # # Get the location parameter from the request, or use the default location Guildford
+    # location = request.GET.get("location", "Guildford")
 
-    # Make an HTTP GET request to the OpenWeather API
-    weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
+    # # Make an HTTP GET request to the OpenWeather API
+    # weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
 
-    # Extract relevant weather data from the API response
-    weather_data = weather_response.json()
-    temperature = weather_data["main"]["temp"]
-    humidity = weather_data["main"]["humidity"]
-    wind_speed = weather_data["wind"]["speed"]
+    # # Extract relevant weather data from the API response
+    # weather_data = weather_response.json()
+    # temperature = weather_data["main"]["temp"]
+    # humidity = weather_data["main"]["humidity"]
+    # wind_speed = weather_data["wind"]["speed"]
 
-    context['temperature']=int(temperature)
-    context['humidity']=humidity
-    context['wind_speed']=wind_speed
+    # context['temperature']=int(temperature)
+    # context['humidity']=humidity
+    # context['wind_speed']=wind_speed
 
     return render(request, "game/tipsIndex.html", context)
 
