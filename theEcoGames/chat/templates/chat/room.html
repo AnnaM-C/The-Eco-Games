@@ -46,11 +46,13 @@
 <h1>{{ room_name }}</h1>
 {{ request.user.username|json_script:"user_username" }}
 {{ chat_box_name|json_script:"room-name" }}
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-<input id="chat-message-input" type="text" size="100"><br>
-<input id="chat-message-submit" type="button" value="Send">
+<div class="col-md-8">
+<textarea disabled id="chat-log" class="form-control" cols="100" rows="20"></textarea><br>
+<input id="chat-message-input" class="form-control" type="text" size="100"><br>
+<input id="chat-message-submit" class="btn btn-primary" type="button" value="Send">
 <input type="hidden" id="room_name" value="{{room_name}}">
 <input type="hidden" id="user_username" value="{{request.user.username}}">
 <input type="hidden" id="room_name" value="{{room_name}}">
+</div>
 
 {% endblock content%}

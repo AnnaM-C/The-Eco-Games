@@ -5,7 +5,8 @@
         {% csrf_token %}
         <div class="shopping-cart">
           <div class="shopping-cart-header">
-            <a class="submitButton" href="" onclick="recordPoints()">Submit</a>
+            {% comment %} <a id="submitButtonCart" class="submitButton" href="" onclick="recordPoints()">Submit</a> {% endcomment %}
+            <button id="submitButtonCart" type="button" class="submitButton">Submit</button>
             <a id="deleteAll" class="submitButton" href="{% url 'gameapp:emptyCart' %}">Empty Cart</a>
               <div class="shopping-cart-total">
               <span class="lighter-text">Total:</span>
@@ -94,5 +95,41 @@
     
 
   </style>
+
+  <script>
+    
+    $('#submitButtonCart').click(function(e) {
+      e.preventDefault(); 
+      var elements = $(".line-item");
+      var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
+      // Extract relevant data from elements
+      var elementData = [];
+      for (var i = 0; i < elements.length; i++) {
+        id = parseInt(elements[i].getAttribute('name'))
+        elementData.push(id);
+      }
+      console.log(elementData);
+      $.ajax({
+        url: '/game/recordPoints',
+        method: 'POST',
+        data: {
+          'list_items': elementData,
+        },
+        headers: {
+          'X-CSRFToken': csrf_token // Include CSRF token in headers
+        },
+        success: function(response) {
+          console.log(response);
+          console.log("test");
+          window.location.reload();
+        },
+        error: function() {
+          console.log("Something went wrong.");
+        }
+      });
+      console.log("end")
+    });
+
+  </script>
 
   {% endblock %}

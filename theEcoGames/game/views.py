@@ -35,66 +35,54 @@ def profile(request):
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
-    # Get riddle object 1.
+    # # Get riddle object for when a user creates an account
+    # riddle=Riddles.objects.get(r_id=1)
 
-    riddle=Riddles.objects.get(r_id=1)
+    # # Define API URL.
+    # QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
 
-    # Define API URL.
+    # # Get API_KEY
+    # API_KEY=config('API_KEY')
 
-    QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
+    # # Get todays date
+    # today = datetime.date.today()
 
-    # Get API_KEY
+    # # Condition for API call
+    # if calendar.monthrange(today.year, today.month)[1] > today.day:
+    #     response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
 
-    API_KEY=config('API_KEY')
+    #     # If API is successful, store riddle in context dictionary
+    #     if response.status_code == requests.codes.ok:
+    #         data=response.json()
+    #         question=data[0]['question']
+    #         context['api_response']=question
 
-    # Get todays date
+    #         # update riddle in database for future use
+    #         riddle.text=question
 
-    today = datetime.date.today()
-
-    # Condition for API call
-
-    if calendar.monthrange(today.year, today.month)[1] == today.day:
-        response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
-
-        # If API is successful, store riddle in context dictionary
-
-        if response.status_code == requests.codes.ok:
-            data=response.json()
-            question=data[0]['question']
-            context['api_response']=question
-
-            # update riddle in database for future use
-
-            riddle.text=question
-
-            # Save database object
-
-            riddle.save()
+    #         # Save database object
+    #         riddle.save()
                 
-        else:
-            print("Error:", response.status_code, response.text)
-    else:
+    #     else:
+    #         print("Error:", response.status_code, response.text)
+    # else:
 
-        # Did not call API for new riddle. Use existing riddle
+    #     # Did not call API for new riddle. Use existing riddle
+    #     r=getattr(riddle,'text')
 
-        r=getattr(riddle,'text')
+    #     # Store in context dictionary
+    #     context['api_response']=r
 
-        # Store in context dictionary
-
-        context['api_response']=r
-
+    #     # Save database object
+    #     riddle.save()
+        
     # Get current user
-
     currentUser = request.user
 
     # Store in context dictionary
-
     context["currentUser"] = currentUser
 
-    # Render profile page
-
     # Get the challenger information
-
     context["challenger"] = currentUser.challenger
 
     # Getting the Location Update from
@@ -149,7 +137,6 @@ def leaderboards(request):
     # Important to reverse the list otherwise it counts lowest number first
     context["topChallengers"] =  Challenger.objects.all().order_by('score').reverse()[:10]
 
-
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
@@ -159,7 +146,6 @@ def leaderboards(request):
 def leaderboardUpdater(request):
     context = {}
     # Fetch the latest top challengers and all
-
     
     # "topChallengers" = Challenger.objects.all().order_by('score').reverse()[:10].values()
     
@@ -513,13 +499,26 @@ def categoriesActivitesView(request):
     context={}
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
+    categories=Category.objects.all()
     context['line_items']=getCartItems(player)
-    context['category_list'] = Category.objects.all()
+    # context['category_list'] = categories
 
     # for category in categories:
     #     name = getattr(category, 'name')
     #     context[name] = name
+
+    category_counts = {}
+
+    for category in categories:
+        activities = Activity.objects.filter(cat=category)
+        count = activities.count()
+        category_counts[category] = count
+        category.count = category_counts.get(category, 0)
+
+    context['category_counts'] = category_counts
+    print(context['category_counts'])
     return render(request, "game/activitiesCategory.html", context)
+    # return render(request, "game/activitiesCategory.html", context)
 
 
 class ActivitiesDetailView(LoginRequiredMixin, DetailView):
@@ -538,6 +537,8 @@ class ActivitiesDetailView(LoginRequiredMixin, DetailView):
         context['activity_list']=Activity.objects.filter(cat=category)
         context['category']=category
         context['cart'] = cart
+        print(context['activity_list'])
+        print(context['category'])
         # context['line_items'] = LineItem.objects.filter(cart=cart, dateRecorded = date.today()) #set up the line items
         # context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
         test=Activity.objects.filter(id=78)
@@ -545,82 +546,55 @@ class ActivitiesDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-
+# Method to obtain the activity id and time from the user which is sent via AJAx to the server. One the sever side
+# we need to get the users cart to ensure the correct line item is added to the cart.
 class AddLineItem(LoginRequiredMixin, View):
      def post(self, request):
         duration=request.POST['duration']
         time=request.POST['time']
         activityId=request.POST['activityId']
-
         activity=get_object_or_404(Activity, id=activityId)
         player = Challenger.objects.get(user=request.user)
         cart = UserCart.objects.get(challenger=player)
 
-        # if statement to check if line item not submitted already exists
+        # If statement to check if line item is checked out
         if LineItem.objects.filter(dateRecorded=date.today(), checkedOut=False, activity=activity, cart=cart).exists():
             return JsonResponse({'cart_success': False}, status=200)
         elif LineItem.objects.filter(dateRecorded=date.today(), checkedOut=True, activity=activity, cart=cart).exists():
             return JsonResponse({'not_cart_success': False}, status=200)
         else:
-            # Everytime we add a line item we need to add the cart and activity ourselves
             lineItem=LineItem(timeRecorded=time, dateRecorded=date.today(), activityDuration=duration, activity=activity, cart=cart)
             lineItem.save()
             itemId=getattr(lineItem, 'pk')
-            
             line_item_html = render_to_string('game/lineItem.html', {'item': lineItem, 'item-id': itemId})
-
-            # lineItem.activityDuration=time
             return HttpResponse(line_item_html)
 
-# method to calculate all the points and send them to the server
+# Method to calculate all the points and send them to the server
 # ajax doesnt have to render anything so no need for server to return anything to ajax
 # just a success message will do
-
 class RecordPoints(LoginRequiredMixin, View):
      def post(self, request):
         if request.method == 'POST':
-            # grab all those items you got
-            # i need to have a list of all the list items pk id
             list_items=request.POST.getlist('list_items[]')
             print(list_items)
-            # then i can filter and get the objects by id
             player = Challenger.objects.get(user=request.user)
             postcode=getattr(player, 'postcode')
-
             for id in list_items:
-                # itemQS=LineItem.objects.filter(pk=id)
-                # itemQS.update(checkedOut=True)
-                print(id)
                 item=LineItem.objects.get(pk=id)
                 item.checkedOut=True
                 item.save()
                 time=getattr(item, 'timeRecorded')
-                # reformat date and time
-                # Convert time string to time object
-                # time_obj = datetime.datetime.strptime(time, "%H:%M:%S.%f")
-
-                # # Convert date string to date object
-                # date_obj = datetime.datetime.strptime(date.today(), "%Y-%m-%d")
-
-                # Combine date and time objects
                 datetime_obj = datetime.datetime.combine(date.today(), time)
-
-                # Format as string in "YYYY-MM-DDThh:mmZ" format
                 formatted_from_datetime = datetime_obj.strftime("%Y-%m-%dT%H:%MZ")
-
                 toTime=datetime_obj+datetime.timedelta(minutes=30)
                 formatted_to_datetime=toTime.strftime("%Y-%m-%dT%H:%MZ")
-
                 # Set API header               
                 headers = {
                 'Accept': 'application/json'
                 }
-                
                 r = requests.get(f'https://api.carbonintensity.org.uk/regional/intensity/{formatted_from_datetime}/{formatted_to_datetime}/postcode/RG10', params={}, headers = headers)
-                
                 # Get the carbon index
                 js=r.json()
-
                 #  Parse JSON reponse
                 index=js['data']['data'][0]['intensity']['index']
                 activity=getattr(item, 'activity')
@@ -628,20 +602,15 @@ class RecordPoints(LoginRequiredMixin, View):
                 print(index)
                 # Get player object
                 player = Challenger.objects.get(user=request.user)
-
                 plus=0
                 # Adjust score based on index
-
-
                 # Here will implement dynamically changing score to assign the player with, depending on the state of the index
 
                 match index:
                     case "very low":
                         baseScore = 40
                         bonus = random.randint(20, 80) # Random bonus for logging event, ranges are higher for the index
-
                         multiplier = 1.2 # Multiplier, adjust depending on other factors, hardcoded for now
-
                         plus=baseScore * multiplier+bonus # Base score * mp + bonus
                         print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "low":
@@ -675,16 +644,14 @@ class RecordPoints(LoginRequiredMixin, View):
 
                 # Get the players current score from DB
                 old_score=player.score
-
                 # Remember the activity points are added along with the plus value
                 new_score=old_score + activity_point + plus
-
                 player.score=new_score
                 player.save()
                 
-            return HttpResponse({'message': 'Elements received and processed successfully.'})
+            return JsonResponse({'message': 'Elements received and processed successfully.'})
         else:
-            return HttpResponse({'message': 'No elements found.'})
+            return JsonResponse({'message': 'No elements found.'})
 
 
 
@@ -695,12 +662,8 @@ def tipsIndex(request):
     player.save()
     context['line_items']=getCartItems(player)
 
-    # context['line_items']=getCartItems(player)
-
-    # player_line_items=getCartItems(player)
-
     def num_lineitems(self):
-        num_lineitems = LineItem.objects.all().count()
+        num_lineitems = LineItem.objects.all().count
         return num_lineitems
 
     user_top_activities = Activity.objects.filter(lineitem__cart__challenger=player) \
@@ -711,14 +674,13 @@ def tipsIndex(request):
     total_top_activities = Activity.objects.all() \
                 .annotate(num_lineitems=Count('lineitem')) \
                 .order_by('-num_lineitems')[:3]
-    
+    print(total_top_activities)
 
     # Most popular user specific activities
     context['heating_user_popular'] = getActivityByCategory(user_top_activities, "Heating")
     context['washing_user_popular']= getActivityByCategory(user_top_activities, "Washing")
     context['bathroom_user_popular']= getActivityByCategory(user_top_activities, "Bathroom")
     context['devices_user_popular']= getActivityByCategory(user_top_activities, "Electronics")
-
 
     user_cart = UserCart.objects.get(challenger=player)
     one_week_ago = timezone.now() - timedelta(days=7)
@@ -743,27 +705,27 @@ def tipsIndex(request):
     context['bathroom_popular']= getActivityByCategory(total_top_activities, "Bathroom")
     context['devices_popular']= getActivityByCategory(total_top_activities, "Electronics")
 
-    # Get API_KEY
-    WEATHER_KEY=config('WEATHER_KEY')
+    # # Get API_KEY
+    # WEATHER_KEY=config('WEATHER_KEY')
     
-    """
-    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
-    """
-    # Get the location parameter from the request, or use the default location Guildford
-    location = request.GET.get("location", "Guildford")
+    # """
+    # Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    # """
+    # # Get the location parameter from the request, or use the default location Guildford
+    # location = request.GET.get("location", "Guildford")
 
-    # Make an HTTP GET request to the OpenWeather API
-    weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
+    # # Make an HTTP GET request to the OpenWeather API
+    # weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
 
-    # Extract relevant weather data from the API response
-    weather_data = weather_response.json()
-    temperature = weather_data["main"]["temp"]
-    humidity = weather_data["main"]["humidity"]
-    wind_speed = weather_data["wind"]["speed"]
+    # # Extract relevant weather data from the API response
+    # weather_data = weather_response.json()
+    # temperature = weather_data["main"]["temp"]
+    # humidity = weather_data["main"]["humidity"]
+    # wind_speed = weather_data["wind"]["speed"]
 
-    context['temperature']=int(temperature)
-    context['humidity']=humidity
-    context['wind_speed']=wind_speed
+    # context['temperature']=int(temperature)
+    # context['humidity']=humidity
+    # context['wind_speed']=wind_speed
 
     return render(request, "game/tipsIndex.html", context)
 
@@ -781,7 +743,6 @@ def getCartItems(player):
     cart.save()
     context={}
     context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
-    print(context['line_items'])
     return context['line_items']
 
 

@@ -34,7 +34,7 @@
   
         <div id="buttons" class="d-flex">
           {% if activity.type == 'TR' %}
-          <button type="button" class="btn btn-success log-time-button me-2" data-bs-toggle="modal" data-bs-target="#trModal" onclick="setFields({{activity.id}})"><strong>Log Time and Duration</strong></button>
+          <button type="button" class="btn btn-success log-time-button me-2" data-bs-toggle="modal" data-bs-target="#trModal" onclick="setFields({{activity.id}})"><strong>Log Time</strong></button>
           {% else %}
           <button type="button" class="btn btn-success log-time-button me-2" data-bs-toggle="modal" data-bs-target="#tnrModal" onclick="setFields({{activity.id}})"><strong>Log Time</strong></button>
           {% endif %}
