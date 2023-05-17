@@ -13,7 +13,37 @@ $navfont: 'Kanit', sans-serif;
 $colourshadow: 5px 5px 25px rgb(81, 81, 81);
 
 $whiteglass: rgba(245, 245, 245, 0.878);
+$goldglass: rgba(231, 202, 10, 0.878);
+$silverglass: rgba(170, 170, 170, 0.878);
 
+$gradientgoldglass: linear-gradient(rgba(218, 159, 39, 0.878), rgba(240, 210, 88, 0.878));
+
+
+// Styling the logo
+@media(min-width: 768px) {
+    #ecologo {
+        max-width: 60%;
+        height: auto;
+    }
+}
+
+#quickCard {
+    background-color: $whiteglass;
+    box-shadow: $colourshadow;
+    animation: rollout 1s forwards;
+    animation-delay: 10s;
+
+    @keyframes rollout {
+        0% {
+          transform: translateY(0%);
+        }
+        100% {
+          transform: translateY(-200%);
+          display: none;
+        }
+    }
+
+}
 
 
 #daNavbar {
@@ -110,6 +140,26 @@ body {
     }
 
 }
+
+
+// Leaderboard Stylings
+
+#leaderboard {
+    box-shadow: 2px 2px 30px black;
+    animation: reveal 1s forwards;
+    // animation-delay: 0.5s;
+
+    @keyframes reveal {
+        0% {
+          transform: translateY(100%);
+        }
+        100% {
+          transform: translateY(0);
+        }
+    }
+}
+
+
 
 
 // Tips View Stylings

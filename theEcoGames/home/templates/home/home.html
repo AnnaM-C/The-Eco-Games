@@ -4,16 +4,76 @@
 {% block content %}
 
 <!-- Greetings! -->
-<br>
+{% comment %} <br>
   <h1 class="display-5 fw-bold">
 {% if user.is_authenticated %} 
     Back for more, {{currentUser.username}}?
 {% else %}
-    Ready to compete?
+  <img src="{% static 'FLogo.svg' %}" alt="The Eco Games">
 {% endif %}
-</h1>
+</h1> {% endcomment %}
 
+{% comment %} {% if user.is_authenticated %}
+  <br>
+  <h1 class="display-5 fw-bold" >Back for more, {{currentUser.username}}?</h1>
+  <br>
+{% else %} {% endcomment %}
+
+  {% comment %} <img src="{% static 'Flogo2.svg' %}" alt="The Eco Games" id = "ecologo" class = "img-fluid">
+  
+  <div class="card text-center" id = "introCard">
+    <div class="card-header">
+      <strong>What is The Eco Games?</strong>
+    </div>
+    <div class="card-body">
+      <p class="card-text">Compete with thousands of players around the country to reduce climate change. Record activities to earn points and see the interactive map grow!</p>
+    </div>
+    <div class="card-footer text-muted">
+      Ready to compete? Sign up now!
+    </div>
+  </div>
+
+<br> {% endcomment %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+
+<div class="col-sm">
+    <img src="{% static 'Flogo2.svg' %}" alt="The Eco Games" id = "ecologo" class = "img-fluid">
+</div>
+
+
+<div class="col-sm">
+  <div class="card h-100 mb-3" id = "quickCard">
+
+    {% if user.is_authenticated %}
+
+    <div class="card-header">
+      Back for more, <strong>{{currentUser.username}}?</strong>
+    </div>
+    <div class="card-body ">
+      <p class="card-text">Did you know that planting trees can be a powerful way to combat climate change? Trees absorb carbon dioxide, a greenhouse gas that contributes to global warming, through the process of photosynthesis, helping to reduce the concentration of CO2 in the atmosphere.</p>
+    </div>
+
+    {% else %}
+    
+    <div class="card-header">
+      <strong>What is The Eco Games?</strong>
+    </div>
+    <div class="card-body ">
+      <p class="card-text">Compete with thousands of players around the country to reduce climate change. Record activities to earn points and see the interactive map grow! <strong><br>Ready to compete? Sign up now!</strong></p>
+    </div>
+    
+
+    {% endif %}
+    
+
+
+  </div>
+  </div>
+
+
+</div>
 <br>
+
 
 <div id = "profilePane">
 
@@ -31,6 +91,7 @@
 
 
 </div>
+
 
 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-4">
   <div class="col-sm">

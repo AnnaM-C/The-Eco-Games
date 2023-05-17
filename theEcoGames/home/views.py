@@ -95,3 +95,9 @@ class RegisterUser(CreateView):
     form_class = UserCreationWithEmailForm 
     template_name = 'home/register.html'
     success_url = reverse_lazy('login')
+
+
+def privacyPolicy(request):
+    context = {}
+
+    return render(request, 'home/policy.html', context)
