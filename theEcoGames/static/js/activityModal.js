@@ -1,5 +1,3 @@
-<script src="path/to/jquery.min.js"></script>
-
 async function setFields(activityid){
   $('#aID').val(activityid);
 }
