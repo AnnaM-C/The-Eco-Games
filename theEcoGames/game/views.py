@@ -48,7 +48,7 @@ def profile(request):
     today = datetime.date.today()
 
     # Condition for API call
-    if calendar.monthrange(today.year, today.month)[1] > today.day:
+    if calendar.monthrange(today.year, today.month)[1] == today.day:
         response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
 
         # If API is successful, store riddle in context dictionary
