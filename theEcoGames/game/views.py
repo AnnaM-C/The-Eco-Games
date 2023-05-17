@@ -513,13 +513,26 @@ def categoriesActivitesView(request):
     context={}
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
+    categories=Category.objects.all()
     context['line_items']=getCartItems(player)
-    context['category_list'] = Category.objects.all()
+    # context['category_list'] = categories
 
     # for category in categories:
     #     name = getattr(category, 'name')
     #     context[name] = name
+
+    category_counts = {}
+
+    for category in categories:
+        activities = Activity.objects.filter(cat=category)
+        count = activities.count()
+        category_counts[category] = count
+        category.count = category_counts.get(category, 0)
+
+    context['category_counts'] = category_counts
+    print(context['category_counts'])
     return render(request, "game/activitiesCategory.html", context)
+    # return render(request, "game/activitiesCategory.html", context)
 
 
 class ActivitiesDetailView(LoginRequiredMixin, DetailView):
@@ -538,6 +551,8 @@ class ActivitiesDetailView(LoginRequiredMixin, DetailView):
         context['activity_list']=Activity.objects.filter(cat=category)
         context['category']=category
         context['cart'] = cart
+        print(context['activity_list'])
+        print(context['category'])
         # context['line_items'] = LineItem.objects.filter(cart=cart, dateRecorded = date.today()) #set up the line items
         # context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
         test=Activity.objects.filter(id=78)
@@ -545,13 +560,13 @@ class ActivitiesDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-
+# Method to obtain the activity id and time from the user which is sent via AJAx to the server. One the sever side
+# we need to get the users cart to ensure the correct line item is added to the cart.
 class AddLineItem(LoginRequiredMixin, View):
      def post(self, request):
         duration=request.POST['duration']
         time=request.POST['time']
         activityId=request.POST['activityId']
-
         activity=get_object_or_404(Activity, id=activityId)
         player = Challenger.objects.get(user=request.user)
         cart = UserCart.objects.get(challenger=player)
@@ -562,65 +577,38 @@ class AddLineItem(LoginRequiredMixin, View):
         elif LineItem.objects.filter(dateRecorded=date.today(), checkedOut=True, activity=activity, cart=cart).exists():
             return JsonResponse({'not_cart_success': False}, status=200)
         else:
-            # Everytime we add a line item we need to add the cart and activity ourselves
             lineItem=LineItem(timeRecorded=time, dateRecorded=date.today(), activityDuration=duration, activity=activity, cart=cart)
             lineItem.save()
             itemId=getattr(lineItem, 'pk')
-            
             line_item_html = render_to_string('game/lineItem.html', {'item': lineItem, 'item-id': itemId})
-
-            # lineItem.activityDuration=time
             return HttpResponse(line_item_html)
 
-# method to calculate all the points and send them to the server
+# Method to calculate all the points and send them to the server
 # ajax doesnt have to render anything so no need for server to return anything to ajax
 # just a success message will do
-
 class RecordPoints(LoginRequiredMixin, View):
      def post(self, request):
         if request.method == 'POST':
-            # grab all those items you got
-            # i need to have a list of all the list items pk id
             list_items=request.POST.getlist('list_items[]')
             print(list_items)
-            # then i can filter and get the objects by id
             player = Challenger.objects.get(user=request.user)
             postcode=getattr(player, 'postcode')
-
             for id in list_items:
-                # itemQS=LineItem.objects.filter(pk=id)
-                # itemQS.update(checkedOut=True)
-                print(id)
                 item=LineItem.objects.get(pk=id)
                 item.checkedOut=True
                 item.save()
                 time=getattr(item, 'timeRecorded')
-                # reformat date and time
-                # Convert time string to time object
-                # time_obj = datetime.datetime.strptime(time, "%H:%M:%S.%f")
-
-                # # Convert date string to date object
-                # date_obj = datetime.datetime.strptime(date.today(), "%Y-%m-%d")
-
-                # Combine date and time objects
                 datetime_obj = datetime.datetime.combine(date.today(), time)
-
-                # Format as string in "YYYY-MM-DDThh:mmZ" format
                 formatted_from_datetime = datetime_obj.strftime("%Y-%m-%dT%H:%MZ")
-
                 toTime=datetime_obj+datetime.timedelta(minutes=30)
                 formatted_to_datetime=toTime.strftime("%Y-%m-%dT%H:%MZ")
-
                 # Set API header               
                 headers = {
                 'Accept': 'application/json'
                 }
-                
                 r = requests.get(f'https://api.carbonintensity.org.uk/regional/intensity/{formatted_from_datetime}/{formatted_to_datetime}/postcode/RG10', params={}, headers = headers)
-                
                 # Get the carbon index
                 js=r.json()
-
                 #  Parse JSON reponse
                 index=js['data']['data'][0]['intensity']['index']
                 activity=getattr(item, 'activity')
@@ -628,20 +616,15 @@ class RecordPoints(LoginRequiredMixin, View):
                 print(index)
                 # Get player object
                 player = Challenger.objects.get(user=request.user)
-
                 plus=0
                 # Adjust score based on index
-
-
                 # Here will implement dynamically changing score to assign the player with, depending on the state of the index
 
                 match index:
                     case "very low":
                         baseScore = 40
                         bonus = random.randint(20, 80) # Random bonus for logging event, ranges are higher for the index
-
                         multiplier = 1.2 # Multiplier, adjust depending on other factors, hardcoded for now
-
                         plus=baseScore * multiplier+bonus # Base score * mp + bonus
                         print("Bonus: ", bonus, " mp: ", multiplier, " plus: ", plus)
                     case "low":
@@ -675,16 +658,14 @@ class RecordPoints(LoginRequiredMixin, View):
 
                 # Get the players current score from DB
                 old_score=player.score
-
                 # Remember the activity points are added along with the plus value
                 new_score=old_score + activity_point + plus
-
                 player.score=new_score
                 player.save()
                 
-            return HttpResponse({'message': 'Elements received and processed successfully.'})
+            return JsonResponse({'message': 'Elements received and processed successfully.'})
         else:
-            return HttpResponse({'message': 'No elements found.'})
+            return JsonResponse({'message': 'No elements found.'})
 
 
 
@@ -781,7 +762,6 @@ def getCartItems(player):
     cart.save()
     context={}
     context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
-    print(context['line_items'])
     return context['line_items']
 
 

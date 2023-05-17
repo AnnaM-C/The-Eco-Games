@@ -35,7 +35,7 @@
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id = "categoryList">
 
-    {% for category in category_list %}
+    {% for category in category_counts %}
 
     <div class="col">
       <div class="card">
@@ -46,7 +46,7 @@
           {% comment %} <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> {% endcomment %}
         </div>
         <div class="card-footer">
-            <small class="text-white">6 activities</small>
+            <small class="text-white">{{category.count}} {{category.count|pluralize:"activity,activities"}}</small>
           </div>
       </div>
     </div>

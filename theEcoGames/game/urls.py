@@ -31,8 +31,7 @@ urlpatterns = [
     # Activities detail view
     path('activities/<int:pk>', views.ActivitiesDetailView.as_view(), name='activitiesDetails'),
     
-    # Add time modal
-    # path('addTime', views.addTime, name='add_time'),
+    # Url to send time and activity ID to server
     path('addTime', views.AddLineItem.as_view(), name='add_time'),
 
     # Tips View
