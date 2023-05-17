@@ -1,3 +1,4 @@
+<script src="path/to/jquery.min.js"></script>
 
 async function setFields(activityid){
   $('#aID').val(activityid);
@@ -52,10 +53,6 @@ $('#ntrModalButton').click(function(e) {
   var time = document.getElementById('ltime4').value;
   var duration=0;
   var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
-  
-  // Debug area
-  console.log(time)
-
   // Send the data to the server using AJAX
   $.ajax({
     url: '/game/addTime',
@@ -78,57 +75,53 @@ $('#ntrModalButton').click(function(e) {
         console.log("Data successfully sent to the server.");
         updateCart(data);
       }
-      // TODO: Add any necessary UI updates or redirections
+      // UI updates
       $('#tnrModal').modal('hide');
     },
     error: function(xhr, status, error) {
       console.log(error);
-      // TODO: Handle the error 
     }
   });
 });
 
-// Here data is the lineItemcreated. This is the last thing that triggers. It does some stuff on the server
-// inbetween calling AJAX and entering the success loop.
+// Here data is the lineItemcreated. This is the last thing that triggers. It accumulates the activity title on the server
+// into a tag line item inbetween calling AJAX and entering the success loop.
 function updateCart(data) {
   console.log(data)
-  // $('.shopping-cart').append('<h5 class="line-item card-title">' + data + '</h5>');
   $('.shopping-cart').append(data);
 }
 
 
-function recordPoints() {
-  var elements = $(".line-item");
-  var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
-  // Extract relevant data from elements
-  var elementData = [];
-  for (var i = 0; i < elements.length; i++) {
-    id = parseInt(elements[i].getAttribute('name'))
-    elementData.push(id);
-  }
-  console.log(elementData);
-  $.ajax({
-    url: '/game/recordPoints',
-    method: 'POST',
-    // data: JSON.stringify(elementData),
-    data: {
-      'list_items': elementData,
-    },
-    headers: {
-      'X-CSRFToken': csrf_token // Include CSRF token in headers
-    },
-    cache: false,
-    success: function(data) {
-      // Do something with the data you defined on the server and then came here
-      console.log(data);
-      console.log("test");
-      window.location.reload();
-    },
-    error: function() {
-      console.log("Something went wrong.");
-    }
-  });
-  console.log("end")
-}
-
-
+// function recordPoints() {
+//   e.preventDefault(); 
+//   var elements = $(".line-item");
+//   var csrf_token = $('[name="csrfmiddlewaretoken"]').val(); // Retrieve CSRF token from the form
+//   // Extract relevant data from elements
+//   var elementData = [];
+//   for (var i = 0; i < elements.length; i++) {
+//     id = parseInt(elements[i].getAttribute('name'))
+//     elementData.push(id);
+//   }
+//   console.log(elementData);
+//   $.ajax({
+//     url: '/game/recordPoints',
+//     method: 'POST',
+//     // data: JSON.stringify(elementData),
+//     data: {
+//       'list_items': elementData,
+//     },
+//     headers: {
+//       'X-CSRFToken': csrf_token // Include CSRF token in headers
+//     },
+//     success: function(response) {
+//       // Do something with the data you defined on the server and then came here
+//       console.log(response);
+//       console.log("test");
+//       window.location.reload();
+//     },
+//     error: function() {
+//       console.log("Something went wrong.");
+//     }
+//   });
+//   console.log("end")
+// }
