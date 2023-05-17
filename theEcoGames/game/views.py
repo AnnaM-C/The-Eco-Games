@@ -35,46 +35,46 @@ def profile(request):
     player, created = Challenger.objects.get_or_create(user=request.user)
     player.save()
     context['line_items']=getCartItems(player)
-    # # Get riddle object for when a user creates an account
-    # riddle=Riddles.objects.get(r_id=1)
+    # Get riddle object for when a user creates an account
+    riddle=Riddles.objects.get(r_id=1)
 
-    # # Define API URL.
-    # QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
+    # Define API URL.
+    QUOTE_URL = 'https://api.api-ninjas.com/v1/riddles'
 
-    # # Get API_KEY
-    # API_KEY=config('API_KEY')
+    # Get API_KEY
+    API_KEY=config('API_KEY')
 
-    # # Get todays date
-    # today = datetime.date.today()
+    # Get todays date
+    today = datetime.date.today()
 
-    # # Condition for API call
-    # if calendar.monthrange(today.year, today.month)[1] > today.day:
-    #     response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
+    # Condition for API call
+    if calendar.monthrange(today.year, today.month)[1] > today.day:
+        response = requests.get(QUOTE_URL, headers={'X-Api-Key': API_KEY})
 
-    #     # If API is successful, store riddle in context dictionary
-    #     if response.status_code == requests.codes.ok:
-    #         data=response.json()
-    #         question=data[0]['question']
-    #         context['api_response']=question
+        # If API is successful, store riddle in context dictionary
+        if response.status_code == requests.codes.ok:
+            data=response.json()
+            question=data[0]['question']
+            context['api_response']=question
 
-    #         # update riddle in database for future use
-    #         riddle.text=question
+            # update riddle in database for future use
+            riddle.text=question
 
-    #         # Save database object
-    #         riddle.save()
+            # Save database object
+            riddle.save()
                 
-    #     else:
-    #         print("Error:", response.status_code, response.text)
-    # else:
+        else:
+            print("Error:", response.status_code, response.text)
+    else:
 
-    #     # Did not call API for new riddle. Use existing riddle
-    #     r=getattr(riddle,'text')
+        # Did not call API for new riddle. Use existing riddle
+        r=getattr(riddle,'text')
 
-    #     # Store in context dictionary
-    #     context['api_response']=r
+        # Store in context dictionary
+        context['api_response']=r
 
-    #     # Save database object
-    #     riddle.save()
+        # Save database object
+        riddle.save()
         
     # Get current user
     currentUser = request.user
