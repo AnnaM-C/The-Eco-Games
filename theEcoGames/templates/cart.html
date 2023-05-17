@@ -1,10 +1,6 @@
 
     {% block content %}
     <div class="container">
-      
-      {% comment %} <ul class="cart-right">
-        <li><a  href="#" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a></li>
-      </ul> <!--end navbar-right --> {% endcomment %}
       <form>
         {% csrf_token %}
         <div class="shopping-cart">
@@ -13,13 +9,11 @@
             <a id="deleteAll" class="submitButton" href="{% url 'gameapp:emptyCart' %}">Empty Cart</a>
               <div class="shopping-cart-total">
               <span class="lighter-text">Total:</span>
-
             </div>
           </div> <!--end shopping-cart-header -->
         {% for item in line_items %}
           {% include 'game/lineItem.html' with item=item %}
         {% endfor %}
-  
         </div> <!--end shopping-cart -->
       </form>
     </div> <!--end container -->

@@ -88,7 +88,7 @@ $('#ntrModalButton').click(function(e) {
   });
 });
 
-// Here data is the lineItemcreated. This is the last thing that triggers. It does soem stuff on the server
+// Here data is the lineItemcreated. This is the last thing that triggers. It does some stuff on the server
 // inbetween calling AJAX and entering the success loop.
 function updateCart(data) {
   console.log(data)
@@ -117,14 +117,18 @@ function recordPoints() {
     headers: {
       'X-CSRFToken': csrf_token // Include CSRF token in headers
     },
-    success: function(response) {
+    cache: false,
+    success: function(data) {
       // Do something with the data you defined on the server and then came here
-      console.log(response);
+      console.log(data);
+      console.log("test");
+      window.location.reload();
     },
     error: function() {
       console.log("Something went wrong.");
     }
   });
+  console.log("end")
 }
 
 

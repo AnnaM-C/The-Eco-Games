@@ -484,7 +484,6 @@ def competitions(request, compYear, compMonth):
 def get_weather_data(request):
 
     # Get API_KEY
-
     WEATHER_KEY=config('WEATHER_KEY')
     
     """
@@ -583,16 +582,19 @@ class RecordPoints(LoginRequiredMixin, View):
             # grab all those items you got
             # i need to have a list of all the list items pk id
             list_items=request.POST.getlist('list_items[]')
+            print(list_items)
             # then i can filter and get the objects by id
             player = Challenger.objects.get(user=request.user)
             postcode=getattr(player, 'postcode')
 
             for id in list_items:
-                itemQS=LineItem.objects.filter(pk=id)
-                itemQS.update(checkedOut=True)
+                # itemQS=LineItem.objects.filter(pk=id)
+                # itemQS.update(checkedOut=True)
+                print(id)
                 item=LineItem.objects.get(pk=id)
+                item.checkedOut=True
+                item.save()
                 time=getattr(item, 'timeRecorded')
-                print(time)
                 # reformat date and time
                 # Convert time string to time object
                 # time_obj = datetime.datetime.strptime(time, "%H:%M:%S.%f")
@@ -679,10 +681,10 @@ class RecordPoints(LoginRequiredMixin, View):
 
                 player.score=new_score
                 player.save()
-
-            return JsonResponse({'message': 'Elements received and processed successfully.'})
+                
+            return HttpResponse({'message': 'Elements received and processed successfully.'})
         else:
-            return JsonResponse({'message': 'No elements found.'})
+            return HttpResponse({'message': 'No elements found.'})
 
 
 
@@ -710,10 +712,6 @@ def tipsIndex(request):
                 .annotate(num_lineitems=Count('lineitem')) \
                 .order_by('-num_lineitems')[:3]
     
-
-    print(total_top_activities)
-    print(user_top_activities)
-
 
     # Most popular user specific activities
     context['heating_user_popular'] = getActivityByCategory(user_top_activities, "Heating")
@@ -745,9 +743,30 @@ def tipsIndex(request):
     context['bathroom_popular']= getActivityByCategory(total_top_activities, "Bathroom")
     context['devices_popular']= getActivityByCategory(total_top_activities, "Electronics")
 
+    # Get API_KEY
+    WEATHER_KEY=config('WEATHER_KEY')
+    
+    """
+    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    """
+    # Get the location parameter from the request, or use the default location Guildford
+    location = request.GET.get("location", "Guildford")
+
+    # Make an HTTP GET request to the OpenWeather API
+    weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
+
+    # Extract relevant weather data from the API response
+    weather_data = weather_response.json()
+    temperature = weather_data["main"]["temp"]
+    humidity = weather_data["main"]["humidity"]
+    wind_speed = weather_data["wind"]["speed"]
+
+    context['temperature']=int(temperature)
+    context['humidity']=humidity
+    context['wind_speed']=wind_speed
+
     return render(request, "game/tipsIndex.html", context)
 
-login_required
 def getActivityByCategory(list, category):
     newlist=[]
     for act in list:
@@ -762,6 +781,7 @@ def getCartItems(player):
     cart.save()
     context={}
     context['line_items'] = LineItem.objects.filter(cart=cart, checkedOut=False, dateRecorded=date.today()) #set up the line items
+    print(context['line_items'])
     return context['line_items']
 
 
@@ -769,6 +789,5 @@ def emptyCart(request):
     player = Challenger.objects.get(user=request.user)
     line_items=getCartItems(player)
     line_items.delete()
-    
     return redirect(reverse('gameapp:categories'))
         

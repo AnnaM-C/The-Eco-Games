@@ -7,6 +7,74 @@ class Command(BaseCommand):
 
         Activity.objects.all().delete()
 
+        # Seed users
+
+        user1 = User(username='user1', email='user1@surrey.ac.uk') 
+        user1.set_password('MyPassword123')
+        user1.save()
+        challenger1=Challenger(user=user1, score=119, postcode="E1")
+        challenger1.save()
+
+        user2 = User(username='user2', email='user2@surrey.ac.uk') 
+        user2.set_password('MyPassword123')
+        user2.save()
+        challenger2=Challenger(user=user2, score=219, postcode="N1")
+        challenger2.save()
+
+        user3 = User(username='user3', email='user3@surrey.ac.uk') 
+        user2.set_password('MyPassword123')
+        user3.save()
+        challenger3=Challenger(user=user3, score=989, postcode="N8")
+        challenger3.save()
+
+        user4 = User(username='user4', email='user4@surrey.ac.uk') 
+        user4.set_password('MyPassword123')
+        user4.save()
+        challenger4=Challenger(user=user4, score=1121, postcode="ST14")
+        challenger4.save()
+
+        user5 = User(username='user5', email='user5@surrey.ac.uk') 
+        user5.set_password('MyPassword123')
+        user5.save()
+        challenger5=Challenger(user=user5, score=1239, postcode="NE12")
+        challenger5.save()
+
+        user6 = User(username='user6', email='user6@surrey.ac.uk') 
+        user6.set_password('MyPassword123')
+        user6.save()
+        challenger6=Challenger(user=user6, score=459, postcode="CR3")
+        challenger6.save()
+
+        user7 = User(username='user7', email='user7@surrey.ac.uk') 
+        user7.set_password('MyPassword123')
+        user7.save()
+        challenger7=Challenger(user=user7, score=735, postcode="SL6")
+        challenger7.save()
+
+        user8 = User(username='user8', email='user8@surrey.ac.uk') 
+        user8.set_password('MyPassword123')
+        user8.save()
+        challenger8=Challenger(user=user8, score=202, postcode="OX4")
+        challenger8.save()
+
+        user9 = User(username='user9', email='user9@surrey.ac.uk') 
+        user9.set_password('MyPassword123')
+        user9.save()
+        challenger9=Challenger(user=user9, score=862, postcode="PL11")
+        challenger9.save()
+
+        user10 = User(username='user10', email='user10@surrey.ac.uk') 
+        user10.set_password('MyPassword123')
+        user10.save()
+        challenger10=Challenger(user=user1, score=163, postcode="TA8")
+        challenger1.save()
+
+        user11 = User(username='user11', email='user11@surrey.ac.uk') 
+        user11.set_password('MyPassword123')
+        user11.save()
+        challenger11=Challenger(user=user11, score=493, postcode="TW4")
+        challenger11.save()
+
         # Seed Categories
         c1=Category(name="Kitchen")
         c1.save()
