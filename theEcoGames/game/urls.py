@@ -22,6 +22,9 @@ urlpatterns = [
     # Competitions view
     path('competitions/<int:compYear>/<int:compMonth>', views.competitions, name='competitions'),
 
+    # Competitions (current) view
+    path('competitions', views.compete, name='compete'),
+
     # # Activities View
     # path('activities', views.createActivitiesView, name = 'activities'),
 

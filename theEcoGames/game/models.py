@@ -93,6 +93,7 @@ class Location(models.Model):
     country=models.TextField(max_length=128)
     size_squ_ft=models.CharField(max_length=128)
     faction=models.ForeignKey(Faction, on_delete=models.CASCADE)
+    score=models.IntegerField(default=0)
 
 
 # Many-to-many class. User logs many tips in an associative table

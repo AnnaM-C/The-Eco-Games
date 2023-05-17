@@ -373,6 +373,11 @@ def competitions(request, compYear, compMonth):
     context['compMonth'] = compMonth
     return render(request, 'game/competitions.html', context)
 
+@login_required
+def compete(request):
+    context = {}
+    return render(request, 'game/compete.html', context)
+
 # Activities view
 # TO DO: Form validation - Add in messages.add_message(request, messages.SUCCESS, 'Event Created' / messages.add_message(request, messages.ERROR, 'Invalid Form Data; Event not created')
 # TO DO: Adapt score/points based on sustainability index
