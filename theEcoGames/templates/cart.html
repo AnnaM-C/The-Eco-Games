@@ -5,9 +5,8 @@
         {% csrf_token %}
         <div class="shopping-cart">
           <div class="shopping-cart-header">
-            {% comment %} <a id="submitButtonCart" class="submitButton" href="" onclick="recordPoints()">Submit</a> {% endcomment %}
-            <button id="submitButtonCart" type="button" class="submitButton">Submit</button>
-            <a id="deleteAll" class="submitButton" href="{% url 'gameapp:emptyCart' %}">Empty Cart</a>
+            <a id="submitButtonCart" type="button" class="submitButton">Submit</a>
+            <a id="deleteAll" class="deleteButton" href="{% url 'gameapp:emptyCart' %}">Empty Cart</a>
               <div class="shopping-cart-total">
               <span class="lighter-text">Total:</span>
             </div>
@@ -77,6 +76,20 @@
       border-radius: 3px;
       font-size: 16px;
       margin: 25px 0 15px 0;
+      
+      &:hover {
+        background: lighten($main-color, 3%);
+      }
+    }
+
+    .deleteButton {
+      background: rgb(255,0,0);
+      color:white;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      border-radius: 3px;
+      font-size: 16px;
       
       &:hover {
         background: lighten($main-color, 3%);

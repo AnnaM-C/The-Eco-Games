@@ -5,6 +5,9 @@
 
 
 {% block content %}
+<br>  
+  <h1 class="display-5 fw-bold">Energy Saving Tips</h1>
+<br>
 
   <div id="tips-header" class="card text-center">
     <div class="card-body">
@@ -23,7 +26,7 @@
         <div class="card-body">
           <h5 class="card-title"><strong>Heating</strong></h5>
           {% if heating_user_popular|length == 0 %}
-            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">It doesn't look like you have logged much this week!</p>
             <p class="card-text">Help your team and try some more energy saving heating activities! See below for recommendations</p>
           {% else %}
             {% for act in heating_user_popular %}
@@ -42,7 +45,7 @@
         <div class="card-body">
           <h5 class="card-title"><strong>Washing</strong></h5>
           {% if washing_user_popular|length == 0 %}
-            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">It doesn't look like you have logged much this week!</p>
             <p class="card-text">Help your team and try some more energy saving washing activities! See below for recommendations</p>
           {% else %}
             {% for act in washing_user_popular %}
@@ -60,7 +63,7 @@
         <div class="card-body">
           <h5 class="card-title"><strong>Bathroom</strong></h5>
           {% if bathroom_user_popular|length == 0 %}
-            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">It doesn't look like you have logged much this week!</p>
             <p class="card-text">Help your team and try some more energy saving activities in the bathroom! See below for recommendations</p>
           {% else %}
             {% for act in bathroom_user_popular %}
@@ -78,7 +81,7 @@
         <div class="card-body">
           <h5 class="card-title"><strong>Devices</strong></h5>
           {% if devices_user_popular|length == 0 %}
-            <p class="card-text">It doesnt look like you have logged much this week!</p>
+            <p class="card-text">It doesn't look like you have logged much this week!</p>
             <p class="card-text">Help your team and try some more electronics energy saving activities! See below for recommendations</p>
           {% else %}
             {% for act in devices_user_popular %}
@@ -98,7 +101,6 @@
     {% if temperature > 20 %}
     <p class="card-title">It's hot today! Hang your washing out to dry instead of using the dryer to save energy!</p>
     <img id="weather-image" src='/static/sun.png'>
-    <h5 class="card-title">Hang your washing out to dry instead of using the dryer to save energy!</p>
     {% else %}
     <p class="card-title">It's cloudy today</p>
     <img id="weather-image" src='/static/cloud.png'>

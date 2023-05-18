@@ -77,18 +77,20 @@
                                     <i class="bi-lightbulb-fill fs-1"></i>
                                 </a>
                             </li>
+                            {% if user.is_authenticated %}
                             <li>
                                 <a href="#" id="cart" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                     <i class="bi-cart2 fs-1"></i>
-                                    {% comment %} <span class="badge">3</span> {% endcomment %}
                                 </a>
+
                             </li>
                             <li>
                                 <a href="#" id="chat-widget" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
                                     <i class="bi-chat-left fs-1"></i>
-                                    {% comment %} <span class="badge">3</span> {% endcomment %}
                                 </a>
                             </li>
+                            {% else %}
+                            {% endif %}
                         </ul>
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center justify-content-center p-3 link-light text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
