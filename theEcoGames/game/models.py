@@ -77,7 +77,12 @@ class Location(models.Model):
     postcode=models.CharField(max_length=128)
     country=models.TextField(max_length=128)
     size_squ_ft=models.CharField(max_length=128)
-    faction=models.ForeignKey(Faction, on_delete=models.CASCADE)
+    # faction=models.ForeignKey(Faction, on_delete=models.CASCADE)
+    score=models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.postcode
+
 
 
 # Many-to-many class. User logs many tips in an associative table
