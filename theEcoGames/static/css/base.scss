@@ -30,8 +30,12 @@ $gradientgoldglass: linear-gradient(rgba(218, 159, 39, 0.878), rgba(240, 210, 88
 #quickCard {
     background-color: $whiteglass;
     box-shadow: $colourshadow;
-    animation: rollout 1s forwards;
-    animation-delay: 10s;
+    
+// Only apply the transition to desktop / medium sized displays otherwise leaves an odd hole
+    @media(min-width: 768px) {
+        animation: rollout 1s forwards;
+
+        animation-delay: 10s;
 
     @keyframes rollout {
         0% {
@@ -42,6 +46,8 @@ $gradientgoldglass: linear-gradient(rgba(218, 159, 39, 0.878), rgba(240, 210, 88
           display: none;
         }
     }
+    }
+    
 
 }
 
