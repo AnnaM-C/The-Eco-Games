@@ -704,27 +704,26 @@ def tipsIndex(request):
     context['bathroom_popular']= getActivityByCategory(total_top_activities, "Bathroom")
     context['devices_popular']= getActivityByCategory(total_top_activities, "Electronics")
 
-    # # Get API_KEY
-    # WEATHER_KEY=config('WEATHER_KEY')
-    
-    # """
-    # Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
-    # """
-    # # Get the location parameter from the request, or use the default location Guildford
-    # location = request.GET.get("location", "Guildford")
+    # Get API_KEY
+    WEATHER_KEY=config('WEATHER_KEY')
+    """
+    Returns weather data from the OpenWeather API for the specified location, or a default location if no location is specified.
+    """
+    # Get the postcode parameter from the user for the API)
+    location=player.postcode
 
-    # # Make an HTTP GET request to the OpenWeather API
-    # weather_response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={WEATHER_KEY}&units=metric")
+    # Make an HTTP GET request to the OpenWeather API
+    weather_response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?zip={location},{'GB'}&appid={WEATHER_KEY}&units=metric")
 
-    # # Extract relevant weather data from the API response
-    # weather_data = weather_response.json()
-    # temperature = weather_data["main"]["temp"]
-    # humidity = weather_data["main"]["humidity"]
-    # wind_speed = weather_data["wind"]["speed"]
+    # Extract relevant weather data from the API response
+    weather_data = weather_response.json()
+    temperature = weather_data["main"]["temp"]
+    humidity = weather_data["main"]["humidity"]
+    wind_speed = weather_data["wind"]["speed"]
 
-    # context['temperature']=int(temperature)
-    # context['humidity']=humidity
-    # context['wind_speed']=wind_speed
+    context['temperature']=int(temperature)
+    context['humidity']=humidity
+    context['wind_speed']=wind_speed
 
     return render(request, "game/tipsIndex.html", context)
 
