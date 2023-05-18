@@ -674,7 +674,6 @@ def tipsIndex(request):
     total_top_activities = Activity.objects.all() \
                 .annotate(num_lineitems=Count('lineitem')) \
                 .order_by('-num_lineitems')
-    print(total_top_activities)
 
     # Most popular user specific activities
     context['heating_user_popular'] = getActivityByCategory(user_top_activities, "Heating")
