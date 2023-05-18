@@ -668,12 +668,12 @@ def tipsIndex(request):
 
     user_top_activities = Activity.objects.filter(lineitem__cart__challenger=player) \
                 .annotate(num_lineitems=Count('lineitem')) \
-                .order_by('-num_lineitems')[:3]
+                .order_by('-num_lineitems')
 
 
     total_top_activities = Activity.objects.all() \
                 .annotate(num_lineitems=Count('lineitem')) \
-                .order_by('-num_lineitems')[:3]
+                .order_by('-num_lineitems')
     print(total_top_activities)
 
     # Most popular user specific activities
