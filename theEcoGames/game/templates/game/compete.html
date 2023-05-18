@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <br>  
+  <h1 class="display-5 fw-bold">Competitions</h1>
+  <br>
+<h5>How is your region doing?</h5>
+<br>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id = "tipGrid">
+
+  {% for loc in topLocations %}
+  <div class="col-sm">
+    <div class="card text-white text-center bg-secondary h-100"  id = "tipCard">
+      <!-- <img src="..." class="card-img-top" alt="..."> -->
+      <div class="card-body">
+        <h5 class="card-title display-5"><strong>{{loc.postcode}}</strong></h5>
+          <p class="card-text">{{loc.score}}</p>
+   
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+<br>
+<div class="col">
+  {% for loc in otherLocations %}
+  <div class="card" id = "activityDetails">
+    <div class="card-body d-flex justify-content-between">
+      <h5 class="card-title"><strong>{{loc.postcode}}</strong></h5>
+
+      <div id="buttons" class="d-flex">
+        <p>{{loc.score}}</p>
+      </div>
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock content %}

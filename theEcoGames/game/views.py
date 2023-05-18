@@ -270,11 +270,17 @@ def maps(request):
 
         if response.status_code == requests.codes.ok: context['api_response'] = response.json()['values'] # Get actual areas using 'values'
         else: print("Error:", response.status_code, response.text)
-        
-        for i in range(len(context['api_response'])): mapdata.update({f"{context['api_response'][i]}":[0]})
+        Location.objects.all().delete()
+        for i in range(len(context['api_response'])):
+            mapdata.update({f"{context['api_response'][i]}":[0]})
+
+            # make all locations
+            n = Location(postcode=f"{context['api_response'][i]}")
+            n.save()
 
     def mdUpdate():
         allUsers = Challenger.objects.all() # get all users
+        locs = Location.objects.all() # get all locations
         for user in allUsers:
             userScore = user.score # Get the user's score
             rawUserCode = user.postcode # Get the user's postcode
@@ -287,6 +293,22 @@ def maps(request):
         # DEBUG: Comment out below line
         # print(mapdata)
         # mapdata is ready to be processed the way datawrapper likes it
+
+        # iterate over locations, look for loc, get score from dictionary
+
+        for loc in locs:
+            locPostcode = loc.postcode # Get postal area
+            country = loc.country # postal score
+
+            loc.score = mapdata.get(locPostcode)[0]
+            country = "TestCountry"
+            loc.save()
+            if loc.score > 0:
+                print(f"Area: {locPostcode}, Score: {loc.score}")
+
+
+
+
     
     def mdCSV():
         mapdataRaw = ""
@@ -358,6 +380,16 @@ def competitions(request, compYear, compMonth):
     context['compYear'] = compYear
     context['compMonth'] = compMonth
     return render(request, 'game/competitions.html', context)
+
+@login_required
+def compete(request):
+    context = {}
+
+    locs = Location.objects.all() # get all locations
+    context["topLocations"] =  Location.objects.all().order_by('score').reverse()[:3]
+    context["otherLocations"] =  Location.objects.all().order_by('score').reverse()[3:]
+
+    return render(request, 'game/compete.html', context)
 
 # Activities view
 # TO DO: Form validation - Add in messages.add_message(request, messages.SUCCESS, 'Event Created' / messages.add_message(request, messages.ERROR, 'Invalid Form Data; Event not created')
