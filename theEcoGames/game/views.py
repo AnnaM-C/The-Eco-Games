@@ -157,12 +157,7 @@ def leaderboardUpdater(request):
     return JsonResponse({"challenged": list(topchallengers), "challengedNames": list(topnames)}, status = 200)
 
 
-
-
-
-
-
-# TO DO: Maps view
+# Maps view
 
 @login_required
 def maps(request):
@@ -588,11 +583,14 @@ class RecordPoints(LoginRequiredMixin, View):
                 formatted_from_datetime = datetime_obj.strftime("%Y-%m-%dT%H:%MZ")
                 toTime=datetime_obj+datetime.timedelta(minutes=30)
                 formatted_to_datetime=toTime.strftime("%Y-%m-%dT%H:%MZ")
+                print(formatted_to_datetime)
+                print(formatted_from_datetime)
+
                 # Set API header               
                 headers = {
                 'Accept': 'application/json'
                 }
-                r = requests.get(f'https://api.carbonintensity.org.uk/regional/intensity/{formatted_from_datetime}/{formatted_to_datetime}/postcode/RG10', params={}, headers = headers)
+                r = requests.get(f'https://api.carbonintensity.org.uk/regional/intensity/{formatted_from_datetime}/{formatted_to_datetime}/postcode/{postcode}', params={}, headers = headers)
                 # Get the carbon index
                 js=r.json()
                 #  Parse JSON reponse
