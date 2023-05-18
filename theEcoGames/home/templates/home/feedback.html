@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+<!-- Form generation -->
+
+{% block content %}
+
+<br>  
+<h1 class="display-5 fw-bold">The Eco Games Feedback Form</h1>
+<br>
+
+<!-- Stops cross side scripting -->
+
+<form method="post" id="contactForm">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <div class="form-actions d-grid gap-2 col-2 mx-auto">
+        <button type="submit" class = "btn btn-primary">Send</button>
+    </div>
+</form>
+
+{% endblock content %}
