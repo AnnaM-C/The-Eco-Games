@@ -1,4 +1,4 @@
-# Summary of Web Application
+# The Eco Games Web Application
 
 ## Business Need and Environment:
 The Eco Games addresses the pressing issues of energy consumption and its environmental impacts. Fossil fuel dominance in energy generation contributes significantly to pollution, global warming, and habitat destruction. Energy security and economic stability are also concerns, necessitating sustainable energy solutions.
